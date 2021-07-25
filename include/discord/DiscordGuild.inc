@@ -123,22 +123,22 @@ methodmap DiscordGuild < DiscordObject
 
     property DiscordGuildMessageNotificationLevel NotificationLevel
     {
-        public get() { return view_as<DiscordGuildMessageNotificationLevel>((this.GetInt("default_message_notifications"))); }
+        public get() { return view_as<DiscordGuildMessageNotificationLevel>(this.GetInt("default_message_notifications")); }
     }
 
     property DiscordGuildExplicitContentFilterLevel ExplicitContentFilter
     {
-        public get() { return view_as<DiscordGuildExplicitContentFilterLevel>((this.GetInt("explicit_content_filter"))); }
+        public get() { return view_as<DiscordGuildExplicitContentFilterLevel>(this.GetInt("explicit_content_filter")); }
     }
 
     property DiscordGuildMFALevel MFALevel
     {
-        public get() { return view_as<DiscordGuildMFALevel>((this.GetInt("mfa_level")));}
+        public get() { return view_as<DiscordGuildMFALevel>(this.GetInt("mfa_level")); }
     }
 
     property DiscordGuildNSFWLevel NSFWLevel
     {
-        public get() { return view_as<DiscordGuildNSFWLevel>((this.GetInt("nsfw_level")));}
+        public get() { return view_as<DiscordGuildNSFWLevel>(this.GetInt("nsfw_level")); }
     }
 
     public JSON_Array GetRoles()
