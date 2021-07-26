@@ -36,7 +36,7 @@ public void OnPluginStart()
 /* -- */
 
 /* Delete animated custom reaction that was created by this bot */
-	bot.DeleteOwnReactionID("866539462401982514", "869072008464441405", DiscordEmoji.FromName("<a:heartrainbow:842923225397985340>"));
+	bot.DeleteOwnReactionID("866539462401982514", "869072008464441405", DiscordEmoji.FromName("a:heartrainbow:842923225397985340"));
 /* -- */
 
 /* Delete message */
