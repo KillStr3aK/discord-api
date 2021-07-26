@@ -56,7 +56,7 @@ public void OnPluginStart()
 	embed.WithFooter(new DiscordEmbedFooter(FOOTER_TEXT, FOOTER_ICON));
 
 #if defined WITH_TIMESTAMP
-	embed.WithTimestamp(new DateTime(DateTime.Now) - TimeSpan.FromHours(2)); //timezone things
+	embed.WithTimestamp(new DateTime(DateTime_Now) - TimeSpan.FromHours(2)); //timezone things
 #endif
 
 	embed.WithImage(new DiscordEmbedImage(IMAGE_LINK, IMAGE_HEIGHT, IMAGE_WIDTH));
