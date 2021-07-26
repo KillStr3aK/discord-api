@@ -94,4 +94,14 @@ methodmap DiscordUser < DiscordObject
     {
         return this.GetString("email", output, maxsize);
     }
+
+	public bool GetMention(char[] output, int maxsize)
+	{
+		char szID[32];
+		if(!this.GetID(szID, sizeof(szID)))
+			return false;
+
+		Format(szID, sizeof(szID), "<@%s>", szID);
+		return true;
+	}
 }

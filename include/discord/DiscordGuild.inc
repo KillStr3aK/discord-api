@@ -91,6 +91,11 @@ methodmap DiscordGuild < DiscordObject
         public get() { return this.GetInt("premium_subscription_count"); }
     }
 
+    property DiscordGuildPremiumTier PremiumTier
+    {
+        public get() { return view_as<DiscordGuildPremiumTier>(this.GetInt("premium_tier")); }
+    }
+
     property JSON_Array Roles
     {
         public get() { return view_as<JSON_Array>(this.GetObject("roles")); }

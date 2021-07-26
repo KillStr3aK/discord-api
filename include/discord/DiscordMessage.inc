@@ -56,6 +56,8 @@ enum DiscordMessageType
     GUILD_INVITE_REMINDER = 22,
 }
 
+typedef OnMessageSent = function void (DiscordBot bot, DiscordChannel channel, DiscordMessage message);
+
 methodmap DiscordMessageSticker < DiscordObject
 {
     property DiscordMessageStickerFormat Format
@@ -132,6 +134,23 @@ methodmap DiscordMessage < DiscordObject
         public get() { return view_as<DiscordMessageType>(this.GetInt("type")); }
     }
 
+    property DiscordUser Author
+    {
+        public get() { return view_as<DiscordUser>(this.GetObject("author")); }
+    }
+
+    property DiscordGuildUser Member
+    {
+        public get() { return view_as<DiscordGuildUser>(this.GetObject("member")); }
+    }
+
+    public DiscordMessage(const char[] content = "")
+    {
+        JSON_Object obj = new JSON_Object();
+        obj.SetString("content", content);
+        return view_as<DiscordMessage>(obj);
+    }
+
     public bool GetWebhookID(char[] output, int maxsize)
 	{
 		return this.GetString("webhook_id", output, maxsize);
@@ -149,12 +168,12 @@ methodmap DiscordMessage < DiscordObject
 
     public DiscordUser GetAuthor()
 	{
-		return view_as<DiscordUser>(this.GetObject("author"));
+		return this.Author;
 	}
 
     public DiscordGuildUser GetMember()
 	{
-		return view_as<DiscordGuildUser>(this.GetObject("member"));
+		return this.Member;
 	}
 
     public bool GetContent(char[] output, int maxsize)
@@ -222,5 +241,15 @@ methodmap DiscordMessage < DiscordObject
     public JSON_Array GetStickers()
     {
         return view_as<JSON_Array>(this.GetObject("stickers"));
+    }
+
+    public void Embed(DiscordEmbed embed)
+    {
+        if(!this.HasKey("embeds"))
+            this.SetObject("embeds", new JSON_Array());
+
+        JSON_Array embeds = this.GetEmbeds();
+        embeds.PushObject(embed);
+        this.SetObject("embeds", embeds);
     }
 }

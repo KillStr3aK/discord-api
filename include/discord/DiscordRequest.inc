@@ -41,12 +41,17 @@ methodmap DiscordRequest < Handle
 		if(obj != null)
 			json_encode(obj, jsonString, sizeof(jsonString), JSON_NONE);
 
-		SteamWorks_SetHTTPRequestGetOrPostParameter(this, "payload_json", jsonString);
+		SteamWorks_SetHTTPRequestRawPostBody(this, "application/json; charset=UTF-8", jsonString, strlen(jsonString));
 	}
 
 	property int Timeout
 	{
 		public set(int timeout) { SteamWorks_SetHTTPRequestNetworkActivityTimeout(this, timeout); }
+	}
+
+	public void SetContentSize(const char[] size = "0")
+	{
+		SteamWorks_SetHTTPRequestHeaderValue(this, "Content-Length", size);
 	}
 
 	public void SetCallbacks(SteamWorksHTTPRequestCompleted OnComplete = INVALID_FUNCTION, SteamWorksHTTPHeadersReceived OnHeadersReceived = INVALID_FUNCTION, SteamWorksHTTPDataReceived OnDataReceived = INVALID_FUNCTION)
@@ -59,11 +64,11 @@ methodmap DiscordRequest < Handle
 		SteamWorks_SetHTTPRequestContextValue(this, data1, data2);
 	}
 
-	public void SetBot(DiscordBot bot)
+	public void SetBot(DiscordBot __bot)
 	{
 		char szBuffer[256];
 		char szToken[196];
-		bot.GetString("token", szToken, sizeof(szToken));
+		__bot.GetString("token", szToken, sizeof(szToken));
 		FormatEx(szBuffer, sizeof(szBuffer), "Bot %s", szToken);
 		SteamWorks_SetHTTPRequestHeaderValue(this, "Authorization", szBuffer);
 	}
