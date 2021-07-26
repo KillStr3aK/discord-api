@@ -144,13 +144,6 @@ methodmap DiscordMessage < DiscordObject
         public get() { return view_as<DiscordGuildUser>(this.GetObject("member")); }
     }
 
-    public DiscordMessage(const char[] content = "")
-    {
-        JSON_Object obj = new JSON_Object();
-        obj.SetString("content", content);
-        return view_as<DiscordMessage>(obj);
-    }
-
     public bool GetWebhookID(char[] output, int maxsize)
 	{
 		return this.GetString("webhook_id", output, maxsize);
@@ -251,5 +244,20 @@ methodmap DiscordMessage < DiscordObject
         JSON_Array embeds = this.GetEmbeds();
         embeds.PushObject(embed);
         this.SetObject("embeds", embeds);
+    }
+
+    public DiscordMessage(const char[] content = "", DiscordEmbed embed = null)
+    {
+        JSON_Object obj = new JSON_Object();
+        obj.SetString("content", content);
+        
+        if(embed != null)
+        {
+            JSON_Array embeds = new JSON_Array();
+            embeds.PushObject(embed);
+            obj.SetObject("embeds", embeds);
+        }
+            
+        return view_as<DiscordMessage>(obj);
     }
 }
