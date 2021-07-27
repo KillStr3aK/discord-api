@@ -7,6 +7,7 @@
 
 #include "discord/Message.sp"
 #include "discord/Reaction.sp"
+#include "discord/User.sp"
 
 public Plugin myinfo = 
 {
@@ -22,6 +23,15 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("DiscordBot.SendMessageToChannel", DiscordBot_SendMessageToChannel);
 	CreateNative("DiscordBot.SendMessageToChannelID", DiscordBot_SendMessageToChannelID);
 
+	CreateNative("DiscordBot.EditMessage", DiscordBot_EditMessage);
+	CreateNative("DiscordBot.EditMessageID", DiscordBot_EditMessageID);
+
+	CreateNative("DiscordBot.PinMessage", DiscordBot_PinMessage);
+	CreateNative("DiscordBot.PinMessageID", DiscordBot_PinMessageID);
+
+	CreateNative("DiscordBot.UnpinMessage", DiscordBot_UnpinMessage);
+	CreateNative("DiscordBot.UnpinMessageID", DiscordBot_UnpinMessageID);
+
 	CreateNative("DiscordBot.DeleteMessagesBulk", DiscordBot_DeleteMessagesBulk);
 	CreateNative("DiscordBot.DeleteMessage", DiscordBot_DeleteMessage);
 	CreateNative("DiscordBot.DeleteMessageID", DiscordBot_DeleteMessageID);
@@ -34,6 +44,12 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 
 	CreateNative("DiscordBot.DeleteReaction", DiscordBot_DeleteReaction);
 	CreateNative("DiscordBot.DeleteReactionID", DiscordBot_DeleteReactionID);
+
+	CreateNative("DiscordBot.DeleteAllReactions", DiscordBot_DeleteAllReactions);
+	CreateNative("DiscordBot.DeleteAllReactionsID", DiscordBot_DeleteAllReactionsID);
+
+	CreateNative("DiscordBot.DeleteAllReactionsEmoji", DiscordBot_DeleteAllReactionsEmoji);
+	CreateNative("DiscordBot.DeleteAllReactionsEmojiID", DiscordBot_DeleteAllReactionsEmojiID);
 	RegPluginLibrary("Discord-API");
 	return APLRes_Success;
 }

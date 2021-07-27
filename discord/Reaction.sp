@@ -84,6 +84,64 @@ public int DiscordBot_DeleteReactionID(Handle plugin, int params)
     DeleteReaction(bot, channelID, messageID, emoji, user);
 }
 
+public int DiscordBot_DeleteAllReactions(Handle plugin, int params)
+{
+    DiscordBot bot = GetNativeCell(1);
+    DiscordChannel channel = GetNativeCell(2);
+    DiscordMessage message = GetNativeCell(3);
+
+    char channelID[32];
+	channel.GetID(channelID, sizeof(channelID));
+
+    char messageID[32];
+    message.GetID(messageID, sizeof(messageID));
+
+    DeleteAllReactions(bot, channelID, messageID, null);
+}
+
+public int DiscordBot_DeleteAllReactionsID(Handle plugin, int params)
+{
+    DiscordBot bot = GetNativeCell(1);
+
+    char channelID[32];
+    GetNativeString(2, channelID, sizeof(channelID));
+
+    char messageID[32];
+    GetNativeString(3, messageID, sizeof(messageID));
+
+    DeleteAllReactions(bot, channelID, messageID, null);
+}
+
+public int DiscordBot_DeleteAllReactionsEmoji(Handle plugin, int params)
+{
+    DiscordBot bot = GetNativeCell(1);
+    DiscordChannel channel = GetNativeCell(2);
+    DiscordMessage message = GetNativeCell(3);
+    DiscordEmoji emoji = GetNativeCell(4);
+
+    char channelID[32];
+	channel.GetID(channelID, sizeof(channelID));
+
+    char messageID[32];
+    message.GetID(messageID, sizeof(messageID));
+
+    DeleteAllReactions(bot, channelID, messageID, emoji);
+}
+
+public int DiscordBot_DeleteAllReactionsEmojiID(Handle plugin, int params)
+{
+    DiscordBot bot = GetNativeCell(1);
+    DiscordEmoji emoji = GetNativeCell(4);
+
+    char channelID[32];
+    GetNativeString(2, channelID, sizeof(channelID));
+
+    char messageID[32];
+    GetNativeString(3, messageID, sizeof(messageID));
+
+    DeleteAllReactions(bot, channelID, messageID, emoji);
+}
+
 static void CreateReaction(DiscordBot bot, const char[] channelid, const char[] messageid, DiscordEmoji emoji)
 {
     char emojiName[48];
@@ -109,4 +167,19 @@ static void DeleteReaction(DiscordBot bot, const char[] channelid, const char[] 
     }
 
 	SendRequest(bot, route, _, k_EHTTPMethodDELETE);
+}
+
+static void DeleteAllReactions(DiscordBot bot, const char[] channelid, const char[] messageid, DiscordEmoji emoji)
+{
+    char route[128];
+    if(emoji == null)
+    {
+        Format(route, sizeof(route), "channels/%s/messages/%s/reactions", channelid, messageid);
+    } else {
+        char emojiName[48];
+        emoji.GetName(emojiName, sizeof(emojiName));
+        Format(route, sizeof(route), "/channels/%s/messages/%s/reactions/%s", channelid, messageid, emojiName);
+    }
+
+    SendRequest(bot, route, _, k_EHTTPMethodDELETE);
 }
