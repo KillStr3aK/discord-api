@@ -3,6 +3,9 @@
 #endif
 #define _DiscordMessage_included_
 
+#include <discord/DiscordMessageReference>
+//#include <discord/DiscordMessageComponent>
+
 enum DiscordMessageActivityTypes
 {
     JOIN = 1,
@@ -249,6 +252,16 @@ methodmap DiscordMessage < DiscordObject
     public JSON_Array GetStickers()
     {
         return view_as<JSON_Array>(this.GetObject("stickers"));
+    }
+
+    public DiscordMessageReference GetReference()
+    {
+        return view_as<DiscordMessageReference>(this.GetObject("message_reference"));
+    }
+
+    public DiscordMessage GetReferencedMessage()
+    {
+        return view_as<DiscordMessage>(this.GetObject("referenced_message"));
     }
 
     public void Embed(DiscordEmbed embed)

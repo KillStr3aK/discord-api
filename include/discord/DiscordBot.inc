@@ -169,6 +169,15 @@ methodmap DiscordBot < JSON_Object
     public native void SendMessageToChannel(DiscordChannel channel, DiscordMessage message);
     public native void SendMessageToChannelID(const char[] channel, DiscordMessage message);
 
+    public native void EditMessage(DiscordChannel channel, DiscordMessage from, DiscordMessage to);
+    public native void EditMessageID(const char[] channelid, const char[] messageid, DiscordMessage to);
+
+    public native void PinMessage(DiscordChannel channel, DiscordMessage message);
+    public native void PinMessageID(const char[] channelid, const char[] messageid);
+
+    public native void UnpinMessage(DiscordChannel channel, DiscordMessage message);
+    public native void UnpinMessageID(const char[] channelid, const char[] messageid);
+
     /**
     * Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
     *
@@ -201,4 +210,10 @@ methodmap DiscordBot < JSON_Object
 
     public native void DeleteReaction(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji, DiscordUser user);
     public native void DeleteReactionID(const char[] channelid, const char[] messageid, DiscordEmoji emoji, DiscordUser user);
+
+    public native void DeleteAllReactions(DiscordChannel channel, DiscordMessage message);
+    public native void DeleteAllReactionsID(const char[] channelid, const char[] messageid);
+
+    public native void DeleteAllReactionsEmoji(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji);
+    public native void DeleteAllReactionsEmojiID(const char[] channelid, const char[] messageid, DiscordEmoji emoji);
 }
