@@ -123,6 +123,8 @@ enum DiscordGatewayIntents
 
 methodmap DiscordBot < JSON_Object
 {
+    /* Unused until there is no wss */
+
     property bool Compress
     {
         public get() { return this.GetBool("compress"); }
@@ -139,6 +141,8 @@ methodmap DiscordBot < JSON_Object
         public get() { return view_as<DiscordGatewayIntents>(this.GetInt("intents")); }
         public set(DiscordGatewayIntents value) { this.SetInt("intents", view_as<int>(value)); }
     }
+
+    /* - - */
 
     public DiscordBot(const char[] token/*, DiscordPresence presence, DiscordGatewayPayload payload = null*/)
     {
@@ -166,9 +170,66 @@ methodmap DiscordBot < JSON_Object
 		delete this;
 	}
 
+    /* Documentation & Callbacks will be added later */
+    /* TODO
+    public native void GetConnections();
+    public native void GetGuilds();
+
+    public native void GetUser();
+    public native void GetCurrentUser();
+
+    public native void GetChannelMessage();
+    public native void GetChannelMessages();
+    public native void GetPinnedMessages();
+
+    public native void GetReactions();
+
+    public native void GetGuildEmoji();
+    public native void CreateGuildEmoji();
+    public native void ModifyGuildEmoji();
+    public native void DeleteGuildEmoji();
+    */
+
+    /* Callback: Returns a guild object on success. */
+    public native void CreateGuild(DiscordGuild guild);
+
+    public native void AddRole(DiscordGuild guild, DiscordUser user, DiscordRole role);
+    public native void RemoveRole(DiscordGuild guild, DiscordUser user, DiscordRole role);
+
+    public native void AddRoleID(const char[] guildid, const char[] userid, const char[] roleid);
+    public native void RemoveRoleID(const char[] guildid, const char[] userid, const char[] roleid);
+
+    /* Callback: Returns a DM channel object. */
+    public native void CreateDM(DiscordUser user);
+    public native void CreateDMID(const char[] userid);
+
+    /* Callback: Returns a user object on success. */
+    public native void ModifySelf(const char[] username, const char[] avatar = "");
+
+    /* Callback: Returns a channel object on success. */
+    /**
+    * Delete a channel, or close a private message. Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
+    *
+    * @param channel     channel you want to delete.
+    */
+    public native void DeleteChannel(DiscordChannel channel);
+
+    /**
+    * Delete a channel, or close a private message. Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
+    *
+    * @param channelid     ID of the channel that you want to delete.
+    */
+    public native void DeleteChannelID(const char[] channelid);
+
+    /* Callback: Returns a channel on success, and a 400 BAD REQUEST on invalid parameters. */
+    public native void ModifyChannel(DiscordChannel from, DiscordChannel to);
+    public native void ModifyChannelID(const char[] channelid, DiscordChannel to);
+
+    /* Callback: Returns a message object. */
     public native void SendMessageToChannel(DiscordChannel channel, DiscordMessage message);
     public native void SendMessageToChannelID(const char[] channel, DiscordMessage message);
 
+    /* Callbackk: Returns a message object. */
     public native void EditMessage(DiscordChannel channel, DiscordMessage from, DiscordMessage to);
     public native void EditMessageID(const char[] channelid, const char[] messageid, DiscordMessage to);
 
@@ -181,7 +242,7 @@ methodmap DiscordBot < JSON_Object
     /**
     * Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
     *
-    * @param channel     message channel.
+    * @param channel     channel where the message is.
     * @param message     message you want to delete.
     */
     public native void DeleteMessage(DiscordChannel channel, DiscordMessage message);
@@ -189,20 +250,35 @@ methodmap DiscordBot < JSON_Object
     /**
     * Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
     *
-    * @param channel     message channel id.
-    * @param message     message id you want to delete.
+    * @param channelid     channel id where the message is.
+    * @param messageid     message id you want to delete.
     */
     public native void DeleteMessageID(const char[] channelid, const char[] messageid);
 
     /**
     * Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the MANAGE_MESSAGES permission.
     *
-    * @param channel        message channel.
+    * @param channel        channel where the message is.
     * @param messages       an array of message ids to delete (2-100).
     */
     public native void DeleteMessagesBulk(DiscordChannel channel, JSON_Array messages);
 
+    /**
+    * Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
+    *
+    * @param channel     channel where the message is.
+    * @param message     message that you want to react to.
+    * @param emoji       reaction emoji.
+    */
     public native void CreateReaction(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji);
+    
+    /**
+    * Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
+    *
+    * @param channelid      channel id where the message is.
+    * @param messageid      message id that you want to react to.
+    * @param emoji          reaction emoji.
+    */
     public native void CreateReactionID(const char[] channelid, const char[] messageid, DiscordEmoji emoji);
 
     public native void DeleteOwnReaction(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji);
