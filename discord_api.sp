@@ -8,6 +8,8 @@
 #include "discord/Message.sp"
 #include "discord/Reaction.sp"
 #include "discord/User.sp"
+#include "discord/Channel.sp"
+#include "discord/Guild.sp"
 
 public Plugin myinfo = 
 {
@@ -20,6 +22,25 @@ public Plugin myinfo =
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
+	CreateNative("DiscordBot.CreateGuild", DiscordBot_CreateGuild);
+
+	CreateNative("DiscordBot.AddRole", DiscordBot_AddRole);
+	CreateNative("DiscordBot.RemoveRole", DiscordBot_RemoveRole);
+
+	CreateNative("DiscordBot.AddRoleID", DiscordBot_AddRoleID);
+	CreateNative("DiscordBot.RemoveRoleID", DiscordBot_RemoveRoleID);
+
+	CreateNative("DiscordBot.CreateDM", DiscordBot_CreateDM);
+	CreateNative("DiscordBot.CreateDMID", DiscordBot_CreateDMID);
+
+	CreateNative("DiscordBot.ModifySelf", DiscordBot_ModifySelf);
+
+	CreateNative("DiscordBot.DeleteChannel", DiscordBot_DeleteChannel);
+	CreateNative("DiscordBot.DeleteChannelID", DiscordBot_DeleteChannelID);
+
+	CreateNative("DiscordBot.ModifyChannel", DiscordBot_ModifyChannel);
+	CreateNative("DiscordBot.ModifyChannelID", DiscordBot_ModifyChannelID);
+
 	CreateNative("DiscordBot.SendMessageToChannel", DiscordBot_SendMessageToChannel);
 	CreateNative("DiscordBot.SendMessageToChannelID", DiscordBot_SendMessageToChannelID);
 
