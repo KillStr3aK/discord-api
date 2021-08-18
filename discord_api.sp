@@ -11,9 +11,11 @@
 #include "discord/Channel.sp"
 #include "discord/Guild.sp"
 
+#define API_VERSION 6
+
 public Plugin myinfo = 
 {
-	name = "",
+	name = "Discord API",
 	author = "Nexd",
 	description = "",
 	version = "1.0",
@@ -88,7 +90,7 @@ void SendRequest(DiscordBot bot, const char[] route, JSON_Object json = null, EH
 	}
 
 	char szEndpoint[256];
-	Format(szEndpoint, sizeof(szEndpoint), "https://discord.com/api/%s", route);
+	Format(szEndpoint, sizeof(szEndpoint), "https://discord.com/api/v%i/%s/", API_VERSION, route);
 
 	DiscordRequest request = new DiscordRequest(szEndpoint, method);
 	request.Timeout = 30;

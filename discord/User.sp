@@ -12,7 +12,7 @@ public int DiscordBot_ModifySelf(Handle plugin, int params)
 static void ModifySelf(DiscordBot bot, const char[] username, const char[] avatar)
 {
     char route[64];
-	Format(route, sizeof(route), "/users/@me");
+	Format(route, sizeof(route), "users/@me");
 
     JSON_Object obj = new JSON_Object();
     obj.SetString("username", username);

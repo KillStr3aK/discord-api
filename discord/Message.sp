@@ -159,13 +159,13 @@ static void EditMessage(DiscordBot bot, const char[] channelid, const char[] mes
 static void PinMessage(DiscordBot bot, const char[] channelid, const char[] messageid)
 {
 	char route[64];
-	Format(route, sizeof(route), "/channels/%s/pins/%s", channelid, messageid);
+	Format(route, sizeof(route), "channels/%s/pins/%s", channelid, messageid);
 	SendRequest(bot, route, _, k_EHTTPMethodPUT);
 }
 
 static void UnpinMessage(DiscordBot bot, const char[] channelid, const char[] messageid)
 {
 	char route[64];
-	Format(route, sizeof(route), "/channels/%s/pins/%s", channelid, messageid);
+	Format(route, sizeof(route), "channels/%s/pins/%s", channelid, messageid);
 	SendRequest(bot, route, _, k_EHTTPMethodDELETE);
 }

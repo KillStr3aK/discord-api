@@ -148,7 +148,7 @@ static void CreateReaction(DiscordBot bot, const char[] channelid, const char[] 
     emoji.GetName(emojiName, sizeof(emojiName));
 
 	char route[128];
-	Format(route, sizeof(route), "/channels/%s/messages/%s/reactions/%s/@me", channelid, messageid, emojiName);
+	Format(route, sizeof(route), "channels/%s/messages/%s/reactions/%s/@me", channelid, messageid, emojiName);
 	SendRequest(bot, route, _, k_EHTTPMethodPUT);
 }
 
@@ -159,11 +159,11 @@ static void DeleteReaction(DiscordBot bot, const char[] channelid, const char[] 
 
     char route[128];
     if(user == null) //null => delete own reaction
-	    Format(route, sizeof(route), "/channels/%s/messages/%s/reactions/%s/@me", channelid, messageid, emojiName);
+	    Format(route, sizeof(route), "channels/%s/messages/%s/reactions/%s/@me", channelid, messageid, emojiName);
     else {
         char userID[32];
         user.GetID(userID, sizeof(userID));
-        Format(route, sizeof(route), "/channels/%s/messages/%s/reactions/%s/%s", channelid, messageid, emojiName, userID);
+        Format(route, sizeof(route), "channels/%s/messages/%s/reactions/%s/%s", channelid, messageid, emojiName, userID);
     }
 
 	SendRequest(bot, route, _, k_EHTTPMethodDELETE);
@@ -178,7 +178,7 @@ static void DeleteAllReactions(DiscordBot bot, const char[] channelid, const cha
     } else {
         char emojiName[48];
         emoji.GetName(emojiName, sizeof(emojiName));
-        Format(route, sizeof(route), "/channels/%s/messages/%s/reactions/%s", channelid, messageid, emojiName);
+        Format(route, sizeof(route), "channels/%s/messages/%s/reactions/%s", channelid, messageid, emojiName);
     }
 
     SendRequest(bot, route, _, k_EHTTPMethodDELETE);

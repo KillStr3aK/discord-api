@@ -74,20 +74,20 @@ public int DiscordBot_RemoveRoleID(Handle plugin, int params)
 static void CreateGuild(DiscordBot bot, DiscordGuild guild)
 {
 	char route[64];
-	Format(route, sizeof(route), "/guilds");
+	Format(route, sizeof(route), "guilds");
 	SendRequest(bot, route, guild, k_EHTTPMethodPOST);
 }
 
 static void AddRole(DiscordBot bot, const char[] guildid, const char[] userid, const char[] roleid)
 {
     char route[64];
-	Format(route, sizeof(route), "/guilds/%s/members/%s/roles/%s", guildid, userid, roleid);
+	Format(route, sizeof(route), "guilds/%s/members/%s/roles/%s", guildid, userid, roleid);
 	SendRequest(bot, route, _, k_EHTTPMethodPUT);
 }
 
 static void RemoveRole(DiscordBot bot, const char[] guildid, const char[] userid, const char[] roleid)
 {
     char route[64];
-	Format(route, sizeof(route), "/guilds/%s/members/%s/roles/%s", guildid, userid, roleid);
+	Format(route, sizeof(route), "guilds/%s/members/%s/roles/%s", guildid, userid, roleid);
 	SendRequest(bot, route, _, k_EHTTPMethodDELETE);
 }

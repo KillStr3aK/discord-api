@@ -74,7 +74,7 @@ static void DeleteChannel(DiscordBot bot, const char[] channelid)
 static void CreateDM(DiscordBot bot, const char[] userid)
 {
     char route[64];
-	Format(route, sizeof(route), "/users/@me/channels");
+	Format(route, sizeof(route), "users/@me/channels");
 
     JSON_Object obj = new JSON_Object();
     obj.SetString("recipient_id", userid);
