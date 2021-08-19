@@ -17,7 +17,7 @@ public Plugin myinfo =
 {
 	name = "Discord API",
 	author = "Nexd",
-	description = "",
+	description = "This library is limited to the basic REST API that Discord provides.",
 	version = "1.0",
 	url = "https://github.com/KillStr3aK"
 };
