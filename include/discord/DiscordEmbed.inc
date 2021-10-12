@@ -57,7 +57,7 @@ methodmap DiscordEmbed < JSON_Object
 	public void WithTimestamp(DateTime dateTime)
 	{
 		char szDate[DATE_LENGTH];
-		dateTime.ToString(szDate, sizeof(szDate));
+		dateTime.ToString(szDate, sizeof(szDate), "%Y-%m-%d %H:%M:%S%z");
 		this.SetString("timestamp", szDate);
 	}
 
