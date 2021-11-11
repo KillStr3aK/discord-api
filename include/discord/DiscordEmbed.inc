@@ -245,7 +245,7 @@ public int HexToDec(const char[] hex)
     int i = 1, result, value;
     while((value = IsHex(hex[i++])) != -1)
     {
-        result = result * 16 + value;
+        result *= 16 + value;
     }
 
     return result
