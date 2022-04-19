@@ -16,7 +16,7 @@ public int OnHTTPDataReceive(Handle request, bool failure, int offset, int statu
 			SteamWorks_GetHTTPResponseBodyCallback(request, ReceivedData);
 		}
 		
-		LogError("[DISCORD] OnHTTPDataReceive - Fail %i %i", failure, statuscode);
+		new DiscordException("OnHTTPDataReceive - Fail %i %i", failure, statuscode);
 	}
 
 	delete request;

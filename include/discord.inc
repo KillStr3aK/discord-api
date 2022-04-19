@@ -11,6 +11,7 @@
 #include <discord/DiscordGatewayPayload>
 #include <discord/DiscordActivity>
 #include <discord/DiscordPresence>
+#include <discord/DiscordException>
 #include <discord/DiscordBot>
 #include <discord/DiscordRequest>
 #include <discord/DiscordWebHook>

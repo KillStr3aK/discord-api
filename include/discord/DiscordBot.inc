@@ -190,27 +190,49 @@ methodmap DiscordBot < JSON_Object
     public native void DeleteGuildEmoji();
     */
 
-    /* Callback: Returns a guild object on success. */
+    /**
+    * Create a new guild.
+    * Fires a Guild Create Gateway event.
+    * This endpoint can be used only by bots in less than 10 guilds.
+    * @param guild guild object with these values: https://discord.com/developers/docs/resources/guild#create-guild-json-params
+    * @callback a guild object on success.
+    */
     public native void CreateGuild(DiscordGuild guild);
 
     public native void AddRole(DiscordGuild guild, DiscordUser user, DiscordRole role);
-    public native void RemoveRole(DiscordGuild guild, DiscordUser user, DiscordRole role);
-
     public native void AddRoleID(const char[] guildid, const char[] userid, const char[] roleid);
+    
+    public native void RemoveRole(DiscordGuild guild, DiscordUser user, DiscordRole role);
     public native void RemoveRoleID(const char[] guildid, const char[] userid, const char[] roleid);
 
-    /* Callback: Returns a DM channel object. */
+    /**
+    * Create a new DM channel with a user.
+    * You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+    * @param user the recipient to open a DM channel with
+    * @callback a DM channel object.
+    */
     public native void CreateDM(DiscordUser user);
+
+    /**
+    * Create a new DM channel with a user.
+    * You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+    * @param userid the recipient user id to open a DM channel with
+    * @callback a DM channel object.
+    */
     public native void CreateDMID(const char[] userid);
 
-    /* Callback: Returns a user object on success. */
+    /** Modify the requester's user account settings.
+    * @param username user's username, if changed may cause the user's discriminator to be randomized.
+    * @param avatar if passed, modifies the user's avatar
+    * @callback: a user object on success.
+    */
     public native void ModifySelf(const char[] username, const char[] avatar = "");
 
-    /* Callback: Returns a channel object on success. */
     /**
     * Delete a channel, or close a private message. Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
     *
     * @param channel     channel you want to delete.
+    * @callback a channel object on success.
     */
     public native void DeleteChannel(DiscordChannel channel);
 
@@ -221,16 +243,66 @@ methodmap DiscordBot < JSON_Object
     */
     public native void DeleteChannelID(const char[] channelid);
 
-    /* Callback: Returns a channel on success, and a 400 BAD REQUEST on invalid parameters. */
+    /**
+    * Update a channel's settings.
+    * All JSON parameters are optional.
+    * @param from DiscordChannel the channel you want to modify.
+    * @param to DiscordChannel object with the modifies you want to apply to the channel.
+    * @callback a channel on success, and a 400 BAD REQUEST on invalid parameters.
+    */
     public native void ModifyChannel(DiscordChannel from, DiscordChannel to);
+
+    /**
+    * Update a channel's settings.
+    * All JSON parameters are optional.
+    * @param channelid id of the channel you want to modify.
+    * @param to DiscordChannel object with the modifies you want to apply to the channel.
+    * @callback a channel on success, and a 400 BAD REQUEST on invalid parameters.
+    */
     public native void ModifyChannelID(const char[] channelid, DiscordChannel to);
 
-    /* Callback: Returns a message object. */
+    /**
+    * Post a message to a guild text or DM channel.
+    * Fires a Message Create Gateway event.
+    * See https://discord.com/developers/docs/reference#message-formatting for more information on how to properly format messages.
+    * Files must be attached using a multipart/form-data body as described in Uploading Files. (Not supported yet)
+    * @param channel DiscordChannel where you want to send the message. (Can be DM)
+    * @param message DiscordMessage object that you want to send.
+    * @callback a message object.
+    */
     public native void SendMessageToChannel(DiscordChannel channel, DiscordMessage message);
+
+    /**
+    * Post a message to a guild text or DM channel.
+    * Fires a Message Create Gateway event.
+    * See https://discord.com/developers/docs/reference#message-formatting for more information on how to properly format messages.
+    * Files must be attached using a multipart/form-data body as described in Uploading Files. (Not supported yet)
+    * @param channel id of the channel where you want to send the message.
+    * @param message DiscordMessage object that you want to send.
+    * @callback a message object.
+    */
     public native void SendMessageToChannelID(const char[] channel, DiscordMessage message);
 
-    /* Callbackk: Returns a message object. */
+    /**
+    * Edit a previously sent message. The fields content, embeds, and flags can be edited by the original message author. Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+    * When the content field is edited, the mentions array in the message object will be reconstructed from scratch based on the new content. The allowed_mentions field of the edit request controls how this happens. If there is no explicit allowed_mentions in the edit request, the content will be parsed with default allowances, that is, without regard to whether or not an allowed_mentions was present in the request that originally created the message.
+    * Fires a Message Update Gateway event.
+    * @param channel DiscordChannel where the message is located.
+    * @param from DiscordMessage that you want to edit.
+    * @param to DiscordMessage with the modifies you want to apply to the message.
+    * @callback a message object.
+    */
     public native void EditMessage(DiscordChannel channel, DiscordMessage from, DiscordMessage to);
+
+    /**
+    * Edit a previously sent message. The fields content, embeds, and flags can be edited by the original message author. Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+    * When the content field is edited, the mentions array in the message object will be reconstructed from scratch based on the new content. The allowed_mentions field of the edit request controls how this happens. If there is no explicit allowed_mentions in the edit request, the content will be parsed with default allowances, that is, without regard to whether or not an allowed_mentions was present in the request that originally created the message.
+    * Fires a Message Update Gateway event.
+    * @param channelid id of the channel where the message is located.
+    * @param messageid id of the message that you want to edit.
+    * @param to DiscordMessage with the modifies you want to apply to the message.
+    * @callback a message object.
+    */
     public native void EditMessageID(const char[] channelid, const char[] messageid, DiscordMessage to);
 
     public native void PinMessage(DiscordChannel channel, DiscordMessage message);

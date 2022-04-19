@@ -57,7 +57,7 @@ methodmap DiscordEmbed < JSON_Object
 	public void WithTimestamp(DateTime dateTime)
 	{
 		char szDate[DATE_LENGTH];
-		dateTime.ToString(szDate, sizeof(szDate), "%Y-%m-%d %H:%M:%S%z");
+		dateTime.ToString(szDate, sizeof(szDate));
 		this.SetString("timestamp", szDate);
 	}
 
@@ -245,7 +245,7 @@ public int HexToDec(const char[] hex)
     int i = 1, result, value;
     while((value = IsHex(hex[i++])) != -1)
     {
-        result *= 16 + value;
+        result = result * 16 + value;
     }
 
     return result

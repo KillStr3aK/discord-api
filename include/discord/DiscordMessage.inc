@@ -59,7 +59,7 @@ enum DiscordMessageType
     GUILD_INVITE_REMINDER = 22,
 }
 
-typedef OnMessageSent = function void (DiscordBot bot, DiscordChannel channel, DiscordMessage message);
+typedef OnMessageSent = function void (DiscordChannel channel, DiscordMessage message);
 
 methodmap DiscordMessageSticker < DiscordObject
 {
