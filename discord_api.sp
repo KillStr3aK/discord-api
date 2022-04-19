@@ -16,14 +16,17 @@
 public Plugin myinfo = 
 {
 	name = "Discord API",
-	author = "Nexd",
+	author = "Nexd @ Eternar",
 	description = "This library is limited to the basic REST API that Discord provides.",
 	version = "1.0",
-	url = "https://github.com/KillStr3aK"
+	url = "https://github.com/KillStr3aK | https://eternar.dev"
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
+	CreateNative("DiscordBot.StartListeningToChannel", DiscordBot_StartListeningToChannel);
+	CreateNative("DiscordBot.StopListeningToChannel", DiscordBot_StopListeningToChannel);
+
 	CreateNative("DiscordBot.CreateGuild", DiscordBot_CreateGuild);
 
 	CreateNative("DiscordBot.AddRole", DiscordBot_AddRole);
