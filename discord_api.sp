@@ -5,6 +5,7 @@
 #pragma newdecls required;
 #pragma semicolon 1;
 
+#include "discord/Shared.sp"
 #include "discord/Message.sp"
 #include "discord/Reaction.sp"
 #include "discord/User.sp"
