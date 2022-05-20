@@ -16,19 +16,43 @@ public Plugin myinfo =
 
 #define BOT_TOKEN ""
 #define GUILD_ID ""
+#define USER_ID ""
+
+DiscordBot discordBot = null;
+DiscordGuild discordGuild = null;
 
 public void OnPluginStart()
 {
-	DiscordBot bot = new DiscordBot(BOT_TOKEN);
-	bot.GetGuild(GUILD_ID, true, OnGuild);
-	bot.Dispose();
+	discordBot = new DiscordBot(BOT_TOKEN);
+	discordBot.GetGuild(GUILD_ID, true, OnGuildReceived);
 }
 
-public void OnGuild(DiscordGuild guild)
+public void OnGuildReceived(DiscordGuild guild)
 {
-	char szGuildName[32];
-	guild.GetName(szGuildName, sizeof(szGuildName));
-	PrintToChatAll("%s", szGuildName);
+	discordGuild = guild;
 
-	guild.Dispose();
+	if(discordGuild != null)
+	{
+		char guildid[64];
+		discordGuild.GetID(guildid, sizeof(guildid));
+		discordBot.GetGuildMemberID(guildid, USER_ID, OnGuildUserReceived);
+	}
+}
+
+public void OnGuildUserReceived(DiscordGuildUser user)
+{
+	char szUserNickname[MAX_DISCORD_NICKNAME_LENGTH];
+	user.GetNickname(szUserNickname, sizeof(szUserNickname));
+	PrintToChatAll("User nickname: %s", szUserNickname);
+
+	user.Dispose();
+}
+
+public void OnPluginEnd()
+{
+	/*
+		totally pointless there but nvm
+	*/
+	discordGuild.Dispose();
+	discordBot.Dispose();
 }
