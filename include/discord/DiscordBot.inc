@@ -202,12 +202,36 @@ methodmap DiscordBot < JSON_Object
     /**
     * Returns the guild object for the given id.
     * If with_counts is set to true, this will also return approximate_member_count and approximate_presence_count for the guild.
+    * 
     * DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+    * 
     * @param guildid id of the guild you want to get.
     * @param with_counts when true, will return approximate member and presence counts for the guild
-    * @param callback a guild object on success.
+    * @param callback a DiscordGuild object on success.
     */
     public native void GetGuild(const char[] guildid, bool with_counts, OnGetDiscordGuild callback);
+
+    /**
+    * Returns a guild member object for the specified user id.
+    *
+    * DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+    * 
+    * @param guild DiscordGuild from where you want to get the user.
+    * @param user DiscordUser that you want to get. (DiscordGuildUser object is different than a normal DiscordUser)
+    * @param callback a DiscordGuildUser object on success.
+    */
+    public native void GetGuildMember(DiscordGuild guild, DiscordUser user, OnGetDiscordGuildUser callback);
+
+    /**
+    * Returns a guild member object for the specified user id.
+    *
+    * DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+    * 
+    * @param guildid guild ID from where you want to get the user.
+    * @param userid user ID that you want to get. (DiscordGuildUser object is different than a normal DiscordUser)
+    * @param callback a DiscordGuildUser object on success.
+    */
+    public native void GetGuildMemberID(const char[] guildid, const char[] userid, OnGetDiscordGuildUser callback);
 
     public native void AddRole(DiscordGuild guild, DiscordUser user, DiscordRole role);
     public native void AddRoleID(const char[] guildid, const char[] userid, const char[] roleid);
