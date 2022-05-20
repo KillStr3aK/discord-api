@@ -59,6 +59,11 @@ enum DiscordGuildSystemChannelFlags
 */
 typedef OnGetDiscordGuild = function void (DiscordGuild guild);
 
+/**
+* DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+*/
+typedef OnGetDiscordGuildUser = function void (DiscordGuildUser member);
+
 methodmap DiscordGuild < DiscordObject
 {
     property bool IsOwner
