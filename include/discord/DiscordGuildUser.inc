@@ -4,6 +4,7 @@
 #define _DiscordGuildUser_included_
 
 #include <discord/DiscordUser>
+#include <discord/API/DiscordRoleList>
 
 #define MAX_DISCORD_NICKNAME_LENGTH 32
 
@@ -58,8 +59,8 @@ methodmap DiscordGuildUser < JSON_Object
         return DateTime.TryParse(szDate, out);
     }
 
-    public JSON_Array GetRoles()
+    public DiscordRoleList GetRoles()
     {
-        return view_as<JSON_Array>(this.GetObject("roles"));
+        return view_as<DiscordRoleList>(this.GetObject("roles"));
     }
 }
