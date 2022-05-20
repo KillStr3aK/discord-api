@@ -24,7 +24,7 @@ public int OnHTTPDataReceive(Handle request, bool failure, int offset, int statu
 
 public int ReceivedData(const char[] data)
 {
-	PrintToServer("Data Received: %s", data);
+	PrintToServer("[DISCORD-API]: %s", data);
 }
 
 methodmap DiscordRequest < Handle

@@ -54,6 +54,11 @@ enum DiscordGuildSystemChannelFlags
     SUPPRESS_GUILD_REMINDER_NOTIFICATIONS = (1 << 2) /* Suppress server setup tips */
 }
 
+/**
+* DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+*/
+typedef OnGetDiscordGuild = function void (DiscordGuild guild);
+
 methodmap DiscordGuild < DiscordObject
 {
     property bool IsOwner
