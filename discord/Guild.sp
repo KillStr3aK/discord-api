@@ -113,37 +113,5 @@ static void GetGuild(DiscordBot bot, const char[] guildid, bool with_counts, Dat
 	with_counts = false;
 	char route[128];
 	Format(route, sizeof(route), "guilds/%s?with_counts=%s", guildid, with_counts ? "true" : "false");
-	SendRequest(bot, route, _, k_EHTTPMethodGET, OnGuildReceived, _, pack);
-}
-
-public int OnGuildReceived(Handle request, bool failure, int offset, int statuscode, DataPack pack)
-{
-	if(failure || (statuscode != 200 && statuscode != 204))
-	{
-		if(statuscode == 400 || statuscode == 429 || statuscode == 500)
-		{
-			// bad format or rate limit or server error handling
-		}
-		
-		new DiscordException("OnGuildReceived - Fail %i %i", failure, statuscode);
-		delete request;
-		return;
-	}
-
-	SteamWorks_GetHTTPResponseBodyCallback(request, ReceivedGuildData, pack);
-	delete request;
-}
-
-public int ReceivedGuildData(const char[] data, DataPack pack)
-{
-	pack.Reset();
-	Handle plugin = pack.ReadCell();
-	OnGetDiscordGuild callback = view_as<OnGetDiscordGuild>(pack.ReadFunction());
-	delete pack;
-	
-	DiscordGuild guild = view_as<DiscordGuild>(json_decode(data));
-
-	Call_StartFunction(plugin, callback);
-	Call_PushCell(guild);
-	Call_Finish();
+	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
 }
