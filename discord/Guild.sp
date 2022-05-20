@@ -110,7 +110,6 @@ static void RemoveRole(DiscordBot bot, const char[] guildid, const char[] userid
 
 static void GetGuild(DiscordBot bot, const char[] guildid, bool with_counts, DataPack pack)
 {
-	with_counts = false;
 	char route[128];
 	Format(route, sizeof(route), "guilds/%s?with_counts=%s", guildid, with_counts ? "true" : "false");
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
