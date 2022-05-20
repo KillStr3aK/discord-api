@@ -52,10 +52,15 @@ methodmap DiscordGuildUser < JSON_Object
         return this.GetString("premium_since", buffer, maxsize);
     }
 
-    public bool GetBoostingSinceDateTime(DateTime& out)
+    public bool GetTimeoutDate(char[] buffer, int maxsize)
+    {
+        return this.GetString("communication_disabled_until", buffer, maxsize);
+    }
+
+    public bool GetTimeoutDateTime(DateTime& out)
     {
         char szDate[DATE_LENGTH];
-        this.GetString("premium_since", szDate, sizeof(szDate));
+        this.GetString("communication_disabled_until", szDate, sizeof(szDate));
         return DateTime.TryParse(szDate, out);
     }
 
@@ -63,4 +68,16 @@ methodmap DiscordGuildUser < JSON_Object
     {
         return view_as<DiscordRoleList>(this.GetObject("roles"));
     }
+
+    /**
+	* Release resources
+	*/
+	public void Dispose()
+	{
+		if(this == null)
+			return;
+
+		this.Cleanup();
+		delete this;
+	}
 }
