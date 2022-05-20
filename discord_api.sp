@@ -11,7 +11,8 @@
 #include "discord/Channel.sp"
 #include "discord/Guild.sp"
 
-#define API_VERSION 6
+/* https://discord.com/developers/docs/reference#api-versioning-api-versions */
+#define API_VERSION 10
 
 public Plugin myinfo = 
 {
@@ -28,6 +29,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("DiscordBot.StopListeningToChannel", DiscordBot_StopListeningToChannel);
 
 	CreateNative("DiscordBot.CreateGuild", DiscordBot_CreateGuild);
+	CreateNative("DiscordBot.GetGuild", DiscordBot_GetGuild);
 
 	CreateNative("DiscordBot.AddRole", DiscordBot_AddRole);
 	CreateNative("DiscordBot.RemoveRole", DiscordBot_RemoveRole);
@@ -80,7 +82,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	return APLRes_Success;
 }
 
-void SendRequest(DiscordBot bot, const char[] route, JSON_Object json = null, EHTTPMethod method = k_EHTTPMethodGET, SteamWorksHTTPDataReceived OnDataReceivedCb = INVALID_FUNCTION, SteamWorksHTTPRequestCompleted OnRequestCompletedCb = INVALID_FUNCTION)
+void SendRequest(DiscordBot bot, const char[] route, JSON_Object json = null, EHTTPMethod method = k_EHTTPMethodGET, SteamWorksHTTPDataReceived OnDataReceivedCb = INVALID_FUNCTION, SteamWorksHTTPRequestCompleted OnRequestCompletedCb = INVALID_FUNCTION, any data1 = 0, any data2 = 0)
 {
 	if(OnRequestCompletedCb == INVALID_FUNCTION)
 	{
@@ -92,14 +94,15 @@ void SendRequest(DiscordBot bot, const char[] route, JSON_Object json = null, EH
 		OnDataReceivedCb = OnHTTPDataReceive; // include/discord/DiscordRequest.inc#L10
 	}
 
-	char szEndpoint[256];
-	Format(szEndpoint, sizeof(szEndpoint), "https://discord.com/api/v%i/%s/", API_VERSION, route);
+	char szEndpoint[512];
+	Format(szEndpoint, sizeof(szEndpoint), "https://discord.com/api/v%i/%s", API_VERSION, route);
 
 	DiscordRequest request = new DiscordRequest(szEndpoint, method);
 	request.Timeout = 30;
 	request.SetCallbacks(OnRequestCompletedCb, _, OnDataReceivedCb);
 	request.SetBot(bot);
 	request.SetJsonBody(json);
+	request.SetContextValue(data1, data2);
 	request.SetContentSize();
 	request.Send();
 }
