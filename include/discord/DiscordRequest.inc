@@ -22,7 +22,7 @@ public int OnHTTPDataReceive(Handle request, bool failure, int offset, int statu
 	delete request;
 }
 
-public int ReceivedData(const char[] data)
+static int ReceivedData(const char[] data)
 {
 	PrintToServer("[DISCORD-API]: %s", data);
 }
