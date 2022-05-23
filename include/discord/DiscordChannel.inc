@@ -24,6 +24,28 @@ enum DiscordChannelVideoQualityMode
 	FULL /* 720p */
 }
 
+/** DiscordBot.ModifyChannel | DiscordBot.ModifyChannelID
+*
+* Called as callback after a successful request.
+*
+* @param channel	DiscordChannel object received.
+*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+*
+* @noreturn
+*/
+typedef OnDiscordChannelModified = function void (DiscordChannel channel);
+
+/** DiscordBot.DeleteChannel
+*
+* Called as callback after a successful request.
+*
+* @param channel	DiscordChannel object received.
+*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+*
+* @noreturn
+*/
+typedef OnDiscordChannelDeleted = function void (DiscordChannel channel);
+
 /* Represents a guild or DM channel within Discord. */
 methodmap DiscordChannel < DiscordObject
 {
