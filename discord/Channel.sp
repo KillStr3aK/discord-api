@@ -3,10 +3,15 @@ public int DiscordBot_ModifyChannel(Handle plugin, int params)
 	DiscordBot bot = GetNativeCell(1);
 	DiscordChannel from = GetNativeCell(2);
 	DiscordChannel to = GetNativeCell(3);
+	OnDiscordChannelModified cb = view_as<OnDiscordChannelModified>(GetNativeFunction(4));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
 
 	char channelID[32];
 	from.GetID(channelID, sizeof(channelID));
-	ModifyChannel(bot, channelID, to);
+	ModifyChannel(bot, channelID, to, pack);
 }
 
 public int DiscordBot_ModifyChannelID(Handle plugin, int params)
@@ -16,17 +21,28 @@ public int DiscordBot_ModifyChannelID(Handle plugin, int params)
 
 	char channelID[32];
 	GetNativeString(2, channelID, sizeof(channelID));
-	ModifyChannel(bot, channelID, to);
+
+	OnDiscordChannelModified cb = view_as<OnDiscordChannelModified>(GetNativeFunction(4));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	ModifyChannel(bot, channelID, to, pack);
 }
 
 public int DiscordBot_DeleteChannel(Handle plugin, int params)
 {
 	DiscordBot bot = GetNativeCell(1);
 	DiscordChannel channel = GetNativeCell(2);
+	OnDiscordChannelModified cb = view_as<OnDiscordChannelModified>(GetNativeFunction(3));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
 
 	char channelID[32];
 	channel.GetID(channelID, sizeof(channelID));
-	DeleteChannel(bot, channelID);
+	DeleteChannel(bot, channelID, pack);
 }
 
 public int DiscordBot_DeleteChannelID(Handle plugin, int params)
@@ -35,7 +51,13 @@ public int DiscordBot_DeleteChannelID(Handle plugin, int params)
 
 	char channelID[32];
 	GetNativeString(2, channelID, sizeof(channelID));
-	DeleteChannel(bot, channelID);
+
+	OnDiscordChannelModified cb = view_as<OnDiscordChannelModified>(GetNativeFunction(3));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	DeleteChannel(bot, channelID, pack);
 }
 
 public int DiscordBot_CreateDM(Handle plugin, int params)
@@ -72,18 +94,18 @@ public int DiscordBot_StopListeningToChannel(Handle plugin, int params)
 	StopListeningToChannel(bot, channel);
 }
 
-static void ModifyChannel(DiscordBot bot, const char[] channelid, DiscordChannel to)
+static void ModifyChannel(DiscordBot bot, const char[] channelid, DiscordChannel to, DataPack pack)
 {
 	char route[64];
 	Format(route, sizeof(route), "channels/%s", channelid);
-	SendRequest(bot, route, to, k_EHTTPMethodPATCH);
+	SendRequest(bot, route, to, k_EHTTPMethodPATCH, OnDiscordDataReceived, _, pack);
 }
 
-static void DeleteChannel(DiscordBot bot, const char[] channelid)
+static void DeleteChannel(DiscordBot bot, const char[] channelid, DataPack pack)
 {
 	char route[64];
 	Format(route, sizeof(route), "channels/%s", channelid);
-	SendRequest(bot, route, _, k_EHTTPMethodDELETE);
+	SendRequest(bot, route, _, k_EHTTPMethodDELETE, OnDiscordDataReceived, _, pack);
 }
 
 static void CreateDM(DiscordBot bot, const char[] userid)
