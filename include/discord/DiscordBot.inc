@@ -170,34 +170,15 @@ methodmap DiscordBot < JSON_Object
 		delete this;
 	}
 
-    /* Documentation & Callbacks will be added later */
-    /* TODO
-    public native void GetConnections();
-    public native void GetGuilds();
-
-    public native void GetUser();
-    public native void GetCurrentUser();
-
-    public native void GetChannelMessage();
-    public native void GetChannelMessages();
-    public native void GetPinnedMessages();
-
-    public native void GetReactions();
-
-    public native void GetGuildEmoji();
-    public native void CreateGuildEmoji();
-    public native void ModifyGuildEmoji();
-    public native void DeleteGuildEmoji();
-    */
-
     /**
     * Create a new guild.
     * Fires a Guild Create Gateway event.
     * This endpoint can be used only by bots in less than 10 guilds.
-    * @param guild guild object with these values: https://discord.com/developers/docs/resources/guild#create-guild-json-params
-    * @callback a guild object on success.
+	* 
+    * @param guild			guild object with these values: https://discord.com/developers/docs/resources/guild#create-guild-json-params
+    * @param callback		a DiscordGuild object on success.
     */
-    public native void CreateGuild(DiscordGuild guild);
+    public native void CreateGuild(DiscordGuild guild, OnDiscordGuildCreated callback);
 
     /**
     * Returns the guild object for the given id.
@@ -205,9 +186,9 @@ methodmap DiscordBot < JSON_Object
     * 
     * DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
     * 
-    * @param guildid id of the guild you want to get.
-    * @param with_counts when true, will return approximate member and presence counts for the guild
-    * @param callback a DiscordGuild object on success.
+    * @param guildid		id of the guild you want to get.
+    * @param with_counts	when true, will return approximate member and presence counts for the guild
+    * @param callback		a DiscordGuild object on success.
     */
     public native void GetGuild(const char[] guildid, bool with_counts, OnGetDiscordGuild callback);
 
@@ -216,9 +197,9 @@ methodmap DiscordBot < JSON_Object
     *
     * DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
     * 
-    * @param guild DiscordGuild from where you want to get the user.
-    * @param user DiscordUser that you want to get. (DiscordGuildUser object is different than a normal DiscordUser)
-    * @param callback a DiscordGuildUser object on success.
+    * @param guild			DiscordGuild from where you want to get the user.
+    * @param user			DiscordUser that you want to get. (DiscordGuildUser object is different than a normal DiscordUser)
+    * @param callback		a DiscordGuildUser object on success.
     */
     public native void GetGuildMember(DiscordGuild guild, DiscordUser user, OnGetDiscordGuildUser callback);
 
@@ -227,22 +208,65 @@ methodmap DiscordBot < JSON_Object
     *
     * DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
     * 
-    * @param guildid guild ID from where you want to get the user.
-    * @param userid user ID that you want to get. (DiscordGuildUser object is different than a normal DiscordUser)
-    * @param callback a DiscordGuildUser object on success.
+    * @param guildid		guild ID from where you want to get the user.
+    * @param userid			user ID that you want to get. (DiscordGuildUser object is different than a normal DiscordUser)
+    * @param callback		a DiscordGuildUser object on success.
     */
     public native void GetGuildMemberID(const char[] guildid, const char[] userid, OnGetDiscordGuildUser callback);
 
+	/**
+	* Adds a role to a guild member.
+	* Requires the MANAGE_ROLES permission.
+	* Returns a 204 empty response on success.
+	* Fires a Guild Member Update Gateway event.
+	*
+	* @param guild			where you want to add the role to the user.
+	* @param user			target who get the role.
+	* @param role			that will be added to the user.
+	*/
     public native void AddRole(DiscordGuild guild, DiscordUser user, DiscordRole role);
+
+	/**
+	* Adds a role to a guild member.
+	* Requires the MANAGE_ROLES permission.
+	* Returns a 204 empty response on success.
+	* Fires a Guild Member Update Gateway event.
+	*
+	* @param guild			ID where you want to add the role to the user.
+	* @param user			ID target who get the role.
+	* @param role			ID that will be added to the user.
+	*/
     public native void AddRoleID(const char[] guildid, const char[] userid, const char[] roleid);
     
+	/**
+	* Removes a role from a guild member.
+	* Requires the MANAGE_ROLES permission.
+	* Returns a 204 empty response on success.
+	* Fires a Guild Member Update Gateway event.
+	*
+	* @param guild			where you want to remove the role from the user.
+	* @param user			target who lose the role.
+	* @param role			that will be removed from the user.
+	*/
     public native void RemoveRole(DiscordGuild guild, DiscordUser user, DiscordRole role);
+
+	/**
+	* Removes a role from a guild member.
+	* Requires the MANAGE_ROLES permission.
+	* Returns a 204 empty response on success.
+	* Fires a Guild Member Update Gateway event.
+	*
+	* @param guild			ID where you want to remove the role from the user.
+	* @param user			ID target who lose the role.
+	* @param role			ID that will be removed from the user.
+	*/
     public native void RemoveRoleID(const char[] guildid, const char[] userid, const char[] roleid);
 
     /**
     * Create a new DM channel with a user.
     * You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
-    * @param user the recipient to open a DM channel with
+    * 
+	* @param user			the recipient to open a DM channel with
     * @callback a DM channel object.
     */
     public native void CreateDM(DiscordUser user);
@@ -250,59 +274,66 @@ methodmap DiscordBot < JSON_Object
     /**
     * Create a new DM channel with a user.
     * You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
-    * @param userid the recipient user id to open a DM channel with
-    * @callback a DM channel object.
+    * 
+	* @param userid			the recipient user id to open a DM channel with
+    * @param callback		a DM channel object.
     */
     public native void CreateDMID(const char[] userid);
 
     /** Modify the requester's user account settings.
-    * @param username user's username, if changed may cause the user's discriminator to be randomized.
-    * @param avatar if passed, modifies the user's avatar
-    * @callback: a user object on success.
+	* 
+    * @param username		user's username, if changed may cause the user's discriminator to be randomized.
+    * @param avatar			if passed, modifies the user's avatar
+    * @param callback		a user object on success.
     */
     public native void ModifySelf(const char[] username, const char[] avatar = "");
 
     /**
-    * Delete a channel, or close a private message. Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
+    * Delete a channel, or close a private message.
+	* Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
     *
-    * @param channel     channel you want to delete.
-    * @callback a channel object on success.
+    * @param channel		channel you want to delete.
+    * @param callback		a channel object on success.
     */
-    public native void DeleteChannel(DiscordChannel channel);
+    public native void DeleteChannel(DiscordChannel channel, OnDiscordChannelDeleted callback);
 
     /**
     * Delete a channel, or close a private message. Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
     *
-    * @param channelid     ID of the channel that you want to delete.
+    * @param channelid		ID of the channel that you want to delete.
+	* @param callback		a channel object on success.
     */
-    public native void DeleteChannelID(const char[] channelid);
+    public native void DeleteChannelID(const char[] channelid, OnDiscordChannelDeleted callback);
 
     /**
     * Update a channel's settings.
     * All JSON parameters are optional.
-    * @param from DiscordChannel the channel you want to modify.
-    * @param to DiscordChannel object with the modifies you want to apply to the channel.
-    * @callback a channel on success, and a 400 BAD REQUEST on invalid parameters.
+    * 
+	* @param from			DiscordChannel the channel you want to modify.
+    * @param to				DiscordChannel object with the modifies you want to apply to the channel.
+    * @param callback		a channel on success, and a 400 BAD REQUEST on invalid parameters.
     */
-    public native void ModifyChannel(DiscordChannel from, DiscordChannel to);
+    public native void ModifyChannel(DiscordChannel from, DiscordChannel to, OnDiscordChannelModified callback);
 
     /**
     * Update a channel's settings.
     * All JSON parameters are optional.
-    * @param channelid id of the channel you want to modify.
-    * @param to DiscordChannel object with the modifies you want to apply to the channel.
-    * @callback a channel on success, and a 400 BAD REQUEST on invalid parameters.
+    * 
+	* @param channelid		id of the channel you want to modify.
+    * @param to				DiscordChannel object with the modifies you want to apply to the channel.
+    * @param callback		a channel on success, and a 400 BAD REQUEST on invalid parameters.
     */
-    public native void ModifyChannelID(const char[] channelid, DiscordChannel to);
+    public native void ModifyChannelID(const char[] channelid, DiscordChannel to, OnDiscordChannelModified callback);
 
     /**
     * Post a message to a guild text or DM channel.
     * Fires a Message Create Gateway event.
     * See https://discord.com/developers/docs/reference#message-formatting for more information on how to properly format messages.
     * Files must be attached using a multipart/form-data body as described in Uploading Files. (Not supported yet)
-    * @param channel DiscordChannel where you want to send the message. (Can be DM)
-    * @param message DiscordMessage object that you want to send.
-    * @callback a message object.
+    * 
+	* @param channel		DiscordChannel where you want to send the message. (Can be DM)
+    * @param message		DiscordMessage object that you want to send.
+    * @param callback 		a message object.
     */
     public native void SendMessageToChannel(DiscordChannel channel, DiscordMessage message);
 
@@ -311,9 +342,10 @@ methodmap DiscordBot < JSON_Object
     * Fires a Message Create Gateway event.
     * See https://discord.com/developers/docs/reference#message-formatting for more information on how to properly format messages.
     * Files must be attached using a multipart/form-data body as described in Uploading Files. (Not supported yet)
-    * @param channel id of the channel where you want to send the message.
-    * @param message DiscordMessage object that you want to send.
-    * @callback a message object.
+    * 
+	* @param channel		id of the channel where you want to send the message.
+    * @param message		DiscordMessage object that you want to send.
+    * @param callback 		a message object.
     */
     public native void SendMessageToChannelID(const char[] channel, DiscordMessage message);
 
@@ -321,10 +353,11 @@ methodmap DiscordBot < JSON_Object
     * Edit a previously sent message. The fields content, embeds, and flags can be edited by the original message author. Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
     * When the content field is edited, the mentions array in the message object will be reconstructed from scratch based on the new content. The allowed_mentions field of the edit request controls how this happens. If there is no explicit allowed_mentions in the edit request, the content will be parsed with default allowances, that is, without regard to whether or not an allowed_mentions was present in the request that originally created the message.
     * Fires a Message Update Gateway event.
-    * @param channel DiscordChannel where the message is located.
-    * @param from DiscordMessage that you want to edit.
-    * @param to DiscordMessage with the modifies you want to apply to the message.
-    * @callback a message object.
+	* 
+    * @param channel		DiscordChannel where the message is located.
+    * @param from			DiscordMessage that you want to edit.
+    * @param to				DiscordMessage with the modifies you want to apply to the message.
+    * @param callback 		a message object.
     */
     public native void EditMessage(DiscordChannel channel, DiscordMessage from, DiscordMessage to);
 
@@ -332,10 +365,11 @@ methodmap DiscordBot < JSON_Object
     * Edit a previously sent message. The fields content, embeds, and flags can be edited by the original message author. Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
     * When the content field is edited, the mentions array in the message object will be reconstructed from scratch based on the new content. The allowed_mentions field of the edit request controls how this happens. If there is no explicit allowed_mentions in the edit request, the content will be parsed with default allowances, that is, without regard to whether or not an allowed_mentions was present in the request that originally created the message.
     * Fires a Message Update Gateway event.
-    * @param channelid id of the channel where the message is located.
-    * @param messageid id of the message that you want to edit.
-    * @param to DiscordMessage with the modifies you want to apply to the message.
-    * @callback a message object.
+	* 
+    * @param channelid		id of the channel where the message is located.
+    * @param messageid		id of the message that you want to edit.
+    * @param to				DiscordMessage with the modifies you want to apply to the message.
+    * @param callback 		a message object.
     */
     public native void EditMessageID(const char[] channelid, const char[] messageid, DiscordMessage to);
 
@@ -348,42 +382,42 @@ methodmap DiscordBot < JSON_Object
     /**
     * Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
     *
-    * @param channel     channel where the message is.
-    * @param message     message you want to delete.
+    * @param channel		channel where the message is.
+    * @param message		message you want to delete.
     */
     public native void DeleteMessage(DiscordChannel channel, DiscordMessage message);
 
     /**
     * Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
     *
-    * @param channelid     channel id where the message is.
-    * @param messageid     message id you want to delete.
+    * @param channelid		channel id where the message is.
+    * @param messageid		message id you want to delete.
     */
     public native void DeleteMessageID(const char[] channelid, const char[] messageid);
 
     /**
     * Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the MANAGE_MESSAGES permission.
     *
-    * @param channel        channel where the message is.
-    * @param messages       an array of message ids to delete (2-100).
+    * @param channel		channel where the message is.
+    * @param messages		an array of message ids to delete (2-100).
     */
     public native void DeleteMessagesBulk(DiscordChannel channel, JSON_Array messages);
 
     /**
     * Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
     *
-    * @param channel     channel where the message is.
-    * @param message     message that you want to react to.
-    * @param emoji       reaction emoji.
+    * @param channel		channel where the message is.
+    * @param message		message that you want to react to.
+    * @param emoji			reaction emoji.
     */
     public native void CreateReaction(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji);
     
     /**
     * Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
     *
-    * @param channelid      channel id where the message is.
-    * @param messageid      message id that you want to react to.
-    * @param emoji          reaction emoji.
+    * @param channelid		channel id where the message is.
+    * @param messageid		message id that you want to react to.
+    * @param emoji			reaction emoji.
     */
     public native void CreateReactionID(const char[] channelid, const char[] messageid, DiscordEmoji emoji);
 
