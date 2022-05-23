@@ -54,13 +54,36 @@ enum DiscordGuildSystemChannelFlags
     SUPPRESS_GUILD_REMINDER_NOTIFICATIONS = (1 << 2) /* Suppress server setup tips */
 }
 
-/**
-* DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+/** DiscordBot.CreateGuild
+*
+* Called as callback after a successful request.
+*
+* @param guild		DiscordGuild object received.
+*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+*
+* @noreturn
+*/
+typedef OnDiscordGuildCreated = function void (DiscordGuild guild);
+
+/** DiscordBot.GetGuild
+*
+* Called as callback after a successful request.
+*
+* @param guild		DiscordGuild object received.
+*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+*
+* @noreturn
 */
 typedef OnGetDiscordGuild = function void (DiscordGuild guild);
 
-/**
-* DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+/** DiscordBot.GetGuildMember | DiscordBot.GetGuildMemberID
+*
+* Called as callback after a successful request.
+*
+* @param member		DiscordGuildUser object received.
+*					DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+*
+* @noreturn
 */
 typedef OnGetDiscordGuildUser = function void (DiscordGuildUser member);
 
