@@ -144,9 +144,9 @@ methodmap ThreadMember < DiscordObject
 	*	the id of the user
 	*/
 	public bool GetUserID(char[] output, int maxsize)
-    {
-        return this.GetString("user_id", output, maxsize);
-    }
+	{
+		return this.GetString("user_id", output, maxsize);
+	}
 
 	/**
 	*	the time the current user last joined the thread
@@ -314,33 +314,33 @@ methodmap DiscordChannel < DiscordObject
 	* 	icon hash of the group DM
 	*/
 	public bool GetIcon(char[] output, int maxsize)
-    {
-        return this.GetString("icon", output, maxsize);
-    }
+	{
+		return this.GetString("icon", output, maxsize);
+	}
 
 	/**
 	* 	the name of the channel (1-100 characters)
 	*/
 	public bool GetName(char[] output, int maxsize)
-    {
-        return this.GetString("name", output, maxsize);
-    }
+	{
+		return this.GetString("name", output, maxsize);
+	}
 
 	/**
 	* 	the channel topic (0-1024 characters)
 	*/
 	public bool GetTopic(char[] output, int maxsize)
-    {
-        return this.GetString("topic", output, maxsize);
-    }
+	{
+		return this.GetString("topic", output, maxsize);
+	}
 
 	/**
 	*	voice region id for the voice channel, automatic when set to null
 	*/
 	public bool GetRtcRegion(char[] output, int maxsize)
-    {
-        return this.GetString("rtc_region", output, maxsize);
-    }
+	{
+		return this.GetString("rtc_region", output, maxsize);
+	}
 
 	/**
 	* 	the id of the guild (may be missing for some channel objects received over gateway guild dispatches)
