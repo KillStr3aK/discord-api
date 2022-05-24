@@ -560,9 +560,9 @@ methodmap DiscordGuild < DiscordObject
 	}
 
 	/**
-	* the preferred locale of a Community guild
-	* used in server discovery and notices from Discord, and sent in interactions
-	* defaults to "en-US" ( https://discord.com/developers/docs/reference#locales )
+	*	the preferred locale of a Community guild
+	*	used in server discovery and notices from Discord, and sent in interactions
+	*	defaults to "en-US" ( https://discord.com/developers/docs/reference#locales )
 	*/
 	public bool GetPreferredLanguage(char[] output, int maxsize)
 	{
