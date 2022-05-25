@@ -113,7 +113,7 @@ typeset OnDiscordChannelDeleted
 	function void (DiscordBot bot, DiscordChannel channel, any data, any data2);
 }
 
-/** DiscordBot.GetChannel | DiscordBot.GetChannelID
+/** DiscordBot.GetChannel
 *
 * Called as callback after a successful request.
 *
