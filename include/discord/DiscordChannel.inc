@@ -113,6 +113,47 @@ typeset OnDiscordChannelDeleted
 	function void (DiscordBot bot, DiscordChannel channel, any data, any data2);
 }
 
+/** DiscordBot.GetChannel | DiscordBot.GetChannelID
+*
+* Called as callback after a successful request.
+*
+*/
+typeset OnGetDiscordChannel
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel, any data, any data2);
+}
+
 /**
 * The thread metadata object contains a number of thread-specific channel fields that are not needed by other channel types.
 */
@@ -250,6 +291,8 @@ methodmap DiscordChannel < DiscordObject
 	property DiscordChannelType Type
 	{
 		public get() { return view_as<DiscordChannelType>(this.GetInt("type")); }
+
+		public set(DiscordChannelType value) { this.SetInt("type", view_as<int>(value)); }
 	}
 
 	/**
@@ -258,6 +301,8 @@ methodmap DiscordChannel < DiscordObject
 	property bool IsNSFW
 	{
 		public get() { return this.GetBool("nsfw"); }
+
+		public set(bool value) { this.SetBool("nsfw", value); }
 	}
 
 	/**
@@ -266,6 +311,8 @@ methodmap DiscordChannel < DiscordObject
 	property int Bitrate
 	{
 		public get() { return this.GetInt("bitrate"); }
+
+		public set(int value) { this.SetInt("bitrate", value); }
 	}
 
 	/**
@@ -274,6 +321,8 @@ methodmap DiscordChannel < DiscordObject
 	property int UserLimit
 	{
 		public get() { return this.GetInt("user_limit"); }
+
+		public set(int value) { this.SetInt("user_limit", value); }
 	}
 
 	/**
@@ -322,6 +371,8 @@ methodmap DiscordChannel < DiscordObject
 	property int Position
 	{
 		public get() { return this.GetInt("position"); }
+
+		public set(int value) { this.SetInt("position", value); }
 	}
 
 	/**
@@ -330,6 +381,8 @@ methodmap DiscordChannel < DiscordObject
 	property JSON_Array PermissionOverwrites
 	{
 		public get() { return view_as<JSON_Array>(this.GetObject("permission_overwrites")); }
+
+		public set(JSON_Array value) { this.SetObject("permission_overwrites", value); }
 	}
 
 	/**
@@ -340,6 +393,8 @@ methodmap DiscordChannel < DiscordObject
 	property int RateLimitPerUser
 	{
 		public get() { return this.GetInt("rate_limit_per_user"); }
+
+		public set(int value) { this.SetInt("rate_limit_per_user", value); }
 	}
 
 	/**
@@ -380,6 +435,8 @@ methodmap DiscordChannel < DiscordObject
 	property int Flags
 	{
 		public get() { return this.GetInt("flags"); }
+
+		public set(int value) { this.SetInt("flags", value); }
 	}
 
 	/**
@@ -391,6 +448,14 @@ methodmap DiscordChannel < DiscordObject
 	}
 
 	/**
+	* 	icon hash of the group DM
+	*/
+	public void SetIcon(const char[] input)
+	{
+		this.SetString("icon", input);
+	}
+
+	/**
 	* 	the name of the channel (1-100 characters)
 	*/
 	public bool GetName(char[] output, int maxsize)
@@ -399,11 +464,27 @@ methodmap DiscordChannel < DiscordObject
 	}
 
 	/**
+	* 	the name of the channel (1-100 characters)
+	*/
+	public void SetName(const char[] input)
+	{
+		this.SetString("name", input);
+	}
+
+	/**
 	* 	the channel topic (0-1024 characters)
 	*/
 	public bool GetTopic(char[] output, int maxsize)
 	{
 		return this.GetString("topic", output, maxsize);
+	}
+
+	/**
+	* 	the channel topic (0-1024 characters)
+	*/
+	public void SetTopic(const char[] input)
+	{
+		this.SetString("topic", input);
 	}
 
 	/**
@@ -479,5 +560,13 @@ methodmap DiscordChannel < DiscordObject
 	public bool GetPermissions(char[] output, int maxsize)
 	{
 		return this.GetString("permissions", output, maxsize);
+	}
+
+	/**
+	* 	computed permissions for the invoking user in the channel, including overwrites, only included when part of the resolved data received on a slash command interaction
+	*/
+	public void SetPermissions(const char[] input)
+	{
+		this.SetString("permissions", input);
 	}
 }
