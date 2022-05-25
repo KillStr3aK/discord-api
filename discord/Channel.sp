@@ -106,6 +106,24 @@ public int DiscordBot_StopListeningToChannel(Handle plugin, int params)
 	StopListeningToChannel(bot, channel);
 }
 
+public int DiscordBot_GetChannel(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+
+	char channelID[32];
+	GetNativeString(2, channelID, sizeof(channelID));
+
+	OnGetDiscordChannel cb = view_as<OnGetDiscordChannel>(GetNativeFunction(3));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(4));
+	pack.WriteCell(GetNativeCell(5));
+	GetChannel(bot, channelID, pack);
+}
+
 static void ModifyChannel(DiscordBot bot, const char[] channelid, DiscordChannel to, DataPack pack)
 {
 	char route[64];
@@ -128,6 +146,13 @@ static void CreateDM(DiscordBot bot, const char[] userid)
 	JSON_Object obj = new JSON_Object();
 	obj.SetString("recipient_id", userid);
 	SendRequest(bot, route, obj, k_EHTTPMethodPOST);
+}
+
+static void GetChannel(DiscordBot bot, const char[] channelid, DataPack pack)
+{
+	char route[64];
+	Format(route, sizeof(route), "channels/%s", channelid);
+	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
 }
 
 /* Remains stock until unfinished */
