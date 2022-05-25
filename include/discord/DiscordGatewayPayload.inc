@@ -20,8 +20,8 @@ enum DiscordGatewayOpCode
 
 methodmap DiscordGatewayPayload < JSON_Object
 {
-    public DiscordGatewayPayload(DiscordGatewayOpCode op, JSON_Object d = null, int s = 0, const char[] t = "")
-    {
+	public DiscordGatewayPayload(DiscordGatewayOpCode op, JSON_Object d = null, int s = 0, const char[] t = "")
+	{
 		JSON_Object obj = new JSON_Object();
 		obj.SetInt("op", view_as<int>(op));
 		obj.SetObject("d", d);

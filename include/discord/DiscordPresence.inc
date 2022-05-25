@@ -14,8 +14,8 @@ enum DiscordPresenceStatus
 
 methodmap DiscordPresence < JSON_Object
 {
-    public DiscordPresence(DiscordActivity activity, DiscordPresenceStatus status, bool afk = false, DateTime since)
-    {
+	public DiscordPresence(DiscordActivity activity, DiscordPresenceStatus status, bool afk = false, DateTime since)
+	{
 		JSON_Object obj = new JSON_Object();
 		obj.SetInt("since", since.Unix);
 		obj.SetBool("afk", afk);

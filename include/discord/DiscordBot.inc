@@ -275,7 +275,7 @@ methodmap DiscordBot < JSON_Object
 	* You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
 	* 
 	* @param user			the recipient to open a DM channel with
-	* @param callback	   a DM channel object.
+	* @param callback		a DM channel object.
 	*/
 	public native void CreateDM(DiscordUser user);
 

@@ -15,26 +15,57 @@ methodmap DiscordEmbedFooter < JSON_Object
 		return view_as<DiscordEmbedFooter>(obj);
 	}
 
+	/**
+	*	footer text
+	*/
 	public bool GetText(char[] output, int maxsize)
 	{
 		return this.GetString("text", output, maxsize);
 	}
 
+	/**
+	*	footer text
+	*/
 	public void SetText(const char[] text)
 	{
 		this.SetString("text", text);
 	}
 
+	/**
+	*	url of footer icon (only supports http(s) and attachments)
+	*/
 	public bool GetIcon(char[] output, int maxsize)
 	{
 		return this.GetString("icon_url", output, maxsize);
 	}
 
+	/**
+	*	url of footer icon (only supports http(s) and attachments)
+	*/
 	public void SetIcon(const char[] iconUrl)
 	{
 		this.SetString("icon_url", iconUrl);
 	}
 
+	/**
+	*	a proxied url of footer icon
+	*/
+	public bool GetIconProxyURL(char[] output, int maxsize)
+	{
+		return this.GetString("proxy_icon_url", output, maxsize);
+	}
+
+	/**
+	*	a proxied url of footer icon
+	*/
+	public void SetIconProxyURL(const char[] iconUrl)
+	{
+		this.SetString("proxy_icon_url", iconUrl);
+	}
+
+	/**
+	* Release resources
+	*/
 	public void Dispose()
 	{
 		if(this == null)

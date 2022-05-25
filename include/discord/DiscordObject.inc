@@ -3,7 +3,9 @@
 #endif
 #define _DiscordObject_included_
 
-/* Discord objects that has an unique snowflake inherits from this methodmap. */
+/**
+* Discord objects that has an unique snowflake inherits from this methodmap.
+*/
 methodmap DiscordObject < JSON_Object
 {
 	/**

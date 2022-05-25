@@ -100,6 +100,9 @@ methodmap DiscordWebHook < JSON_Object
 		request.Send();
 	}
 
+	/**
+	* Release resources
+	*/
 	public void Dispose()
 	{
 		if(this == null)
