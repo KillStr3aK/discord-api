@@ -6,8 +6,11 @@ public int DiscordBot_ModifyChannel(Handle plugin, int params)
 	OnDiscordChannelModified cb = view_as<OnDiscordChannelModified>(GetNativeFunction(4));
 
 	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
 	pack.WriteCell(plugin);
 	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(5));
+	pack.WriteCell(GetNativeCell(6));
 
 	char channelID[32];
 	from.GetID(channelID, sizeof(channelID));
@@ -25,8 +28,11 @@ public int DiscordBot_ModifyChannelID(Handle plugin, int params)
 	OnDiscordChannelModified cb = view_as<OnDiscordChannelModified>(GetNativeFunction(4));
 
 	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
 	pack.WriteCell(plugin);
 	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(5));
+	pack.WriteCell(GetNativeCell(6));
 	ModifyChannel(bot, channelID, to, pack);
 }
 
@@ -37,8 +43,11 @@ public int DiscordBot_DeleteChannel(Handle plugin, int params)
 	OnDiscordChannelModified cb = view_as<OnDiscordChannelModified>(GetNativeFunction(3));
 
 	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
 	pack.WriteCell(plugin);
 	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(4));
+	pack.WriteCell(GetNativeCell(5));
 
 	char channelID[32];
 	channel.GetID(channelID, sizeof(channelID));
@@ -55,8 +64,11 @@ public int DiscordBot_DeleteChannelID(Handle plugin, int params)
 	OnDiscordChannelModified cb = view_as<OnDiscordChannelModified>(GetNativeFunction(3));
 
 	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
 	pack.WriteCell(plugin);
 	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(4));
+	pack.WriteCell(GetNativeCell(5));
 	DeleteChannel(bot, channelID, pack);
 }
 

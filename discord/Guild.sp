@@ -5,8 +5,11 @@ public int DiscordBot_CreateGuild(Handle plugin, int params)
 	OnDiscordGuildCreated cb = GetNativeCell(3);
 
 	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
 	pack.WriteCell(plugin);
 	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(4));
+	pack.WriteCell(GetNativeCell(5));
 
 	CreateGuild(bot, guild, pack);
 }
@@ -88,8 +91,11 @@ public int DiscordBot_GetGuild(Handle plugin, int params)
 	OnGetDiscordGuild cb = view_as<OnGetDiscordGuild>(GetNativeFunction(4));
 
 	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
 	pack.WriteCell(plugin);
 	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(5));
+	pack.WriteCell(GetNativeCell(6));
 	GetGuild(bot, guildid, with_counts, pack);
 }
 
@@ -107,8 +113,11 @@ public int DiscordBot_GetGuildMember(Handle plugin, int params)
 	user.GetID(userid, sizeof(userid));
 
 	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
 	pack.WriteCell(plugin);
 	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(5));
+	pack.WriteCell(GetNativeCell(6));
 	GetGuildMember(bot, guildid, userid, pack);
 }
 
@@ -125,8 +134,11 @@ public int DiscordBot_GetGuildMemberID(Handle plugin, int params)
 	OnGetDiscordGuildUser cb = view_as<OnGetDiscordGuildUser>(GetNativeFunction(4));
 
 	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
 	pack.WriteCell(plugin);
 	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(5));
+	pack.WriteCell(GetNativeCell(6));
 	GetGuildMember(bot, guildid, userid, pack);
 }
 
