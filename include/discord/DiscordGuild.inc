@@ -153,35 +153,35 @@ typeset OnGetDiscordGuildUser
 	/**
 	*
 	* @param bot		same handle as the bot you have used to call the native.
-	* @param guild		DiscordGuild object received.
-	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param guildUser	DiscordGuildUser object received.
+	*					DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
 	*
 	* @noreturn
 	*/
-	function void (DiscordBot bot, DiscordGuild guild);
+	function void (DiscordBot bot, DiscordGuildUser guildUser);
 
 	/**
 	*
 	* @param bot		same handle as the bot you have used to call the native.
-	* @param guild		DiscordGuild object received.
-	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param guildUser	DiscordGuildUser object received.
+	*					DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
 	* @param data		custom data passed through the request to use in the callback
 	*
 	* @noreturn
 	*/
-	function void (DiscordBot bot, DiscordGuild guild, any data);
+	function void (DiscordBot bot, DiscordGuildUser guildUser, any data);
 
 	/**
 	*
 	* @param bot		same handle as the bot you have used to call the native.
-	* @param guild		DiscordGuild object received.
-	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param guildUser	DiscordGuildUser object received.
+	*					DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
 	* @param data		custom data passed through the request to use in the callback
 	* @param data2		custom data passed through the request to use in the callback
 	*
 	* @noreturn
 	*/
-	function void (DiscordBot bot, DiscordGuild guild, any data, any data2);
+	function void (DiscordBot bot, DiscordGuildUser guildUser, any data, any data2);
 }
 
 methodmap DiscordIntegrationAccount < JSON_Object
