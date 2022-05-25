@@ -1,7 +1,7 @@
 #include <sourcemod>
 #include <discord>
 
-#pragma tabsize 0;
+#pragma tabsize 4;
 #pragma newdecls required;
 #pragma semicolon 1;
 
@@ -44,6 +44,8 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("DiscordBot.CreateDMID", DiscordBot_CreateDMID);
 
 	CreateNative("DiscordBot.ModifySelf", DiscordBot_ModifySelf);
+
+	CreateNative("DiscordBot.GetChannel", DiscordBot_GetChannel);
 
 	CreateNative("DiscordBot.DeleteChannel", DiscordBot_DeleteChannel);
 	CreateNative("DiscordBot.DeleteChannelID", DiscordBot_DeleteChannelID);
