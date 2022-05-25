@@ -25,11 +25,14 @@ static int ReceivedData(const char[] data, DataPack pack)
 	any data1 = pack.ReadCell();
 	any data2 = pack.ReadCell();
 	delete pack;
-	
-	Call_StartFunction(plugin, callback);
-	Call_PushCell(bot);
-	Call_PushCell(json_decode(data));
-	Call_PushCell(data1);
-	Call_PushCell(data2);
-	Call_Finish();
+
+	if(callback != INVALID_FUNCTION)
+	{
+		Call_StartFunction(plugin, callback);
+		Call_PushCell(bot);
+		Call_PushCell(json_decode(data));
+		Call_PushCell(data1);
+		Call_PushCell(data2);
+		Call_Finish();
+	}
 }
