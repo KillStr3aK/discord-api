@@ -14,12 +14,11 @@ public Plugin myinfo =
 	url = "https://github.com/KillStr3aK"
 };
 
-#define BOT_TOKEN ""
-#define GUILD_ID ""
-#define USER_ID ""
+#define BOT_TOKEN	""
+#define GUILD_ID	""
+#define USER_ID		""
 
 DiscordBot discordBot = null;
-DiscordGuild discordGuild = null;
 
 public void OnPluginStart()
 {
@@ -27,24 +26,26 @@ public void OnPluginStart()
 	discordBot.GetGuild(GUILD_ID, true, OnGuildReceived);
 }
 
-public void OnGuildReceived(DiscordGuild guild)
+public void OnGuildReceived(DiscordBot bot, DiscordGuild guild)
 {
-	discordGuild = guild;
-
-	if(discordGuild != null)
+	if(guild != null)
 	{
 		char guildid[64];
-		discordGuild.GetID(guildid, sizeof(guildid));
-		discordBot.GetGuildMemberID(guildid, USER_ID, OnGuildUserReceived);
+		guild.GetID(guildid, sizeof(guildid));
+		bot.GetGuildMemberID(guildid, USER_ID, OnGuildUserReceived);
+
+		/* Release guild resource */
+		guild.Dispose();
 	}
 }
 
-public void OnGuildUserReceived(DiscordGuildUser user)
+public void OnGuildUserReceived(DiscordBot bot, DiscordGuildUser user)
 {
 	char szUserNickname[MAX_DISCORD_NICKNAME_LENGTH];
 	user.GetNickname(szUserNickname, sizeof(szUserNickname));
 	PrintToChatAll("User nickname: %s", szUserNickname);
 
+	/* Release user resource */
 	user.Dispose();
 }
 
@@ -53,6 +54,5 @@ public void OnPluginEnd()
 	/*
 		totally pointless there but nvm
 	*/
-	discordGuild.Dispose();
 	discordBot.Dispose();
 }
