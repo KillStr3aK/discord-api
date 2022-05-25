@@ -65,34 +65,124 @@ enum DiscordGuildIntegrationExpireBehaviour
 *
 * Called as callback after a successful request.
 *
-* @param guild		DiscordGuild object received.
-*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
-*
-* @noreturn
 */
-typedef OnDiscordGuildCreated = function void (DiscordGuild guild);
+typeset OnDiscordGuildCreated
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild, any data, any data2);
+}
 
 /** DiscordBot.GetGuild
 *
 * Called as callback after a successful request.
 *
-* @param guild		DiscordGuild object received.
-*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
-*
-* @noreturn
 */
-typedef OnGetDiscordGuild = function void (DiscordGuild guild);
+typeset OnGetDiscordGuild
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild, any data, any data2);
+}
 
 /** DiscordBot.GetGuildMember | DiscordBot.GetGuildMemberID
 *
 * Called as callback after a successful request.
 *
-* @param member		DiscordGuildUser object received.
-*					DiscordGuildUser handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
-*
-* @noreturn
 */
-typedef OnGetDiscordGuildUser = function void (DiscordGuildUser member);
+typeset OnGetDiscordGuildUser
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuild object received.
+	*					DiscordGuild handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuild guild, any data, any data2);
+}
 
 methodmap DiscordIntegrationAccount < JSON_Object
 {

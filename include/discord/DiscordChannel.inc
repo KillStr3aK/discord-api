@@ -35,23 +35,83 @@ enum DiscordChannelFlags
 *
 * Called as callback after a successful request.
 *
-* @param channel	DiscordChannel object received.
-*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
-*
-* @noreturn
 */
-typedef OnDiscordChannelModified = function void (DiscordChannel channel);
+typeset OnDiscordChannelModified
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel, any data, any data2);
+}
 
 /** DiscordBot.DeleteChannel
 *
 * Called as callback after a successful request.
 *
-* @param channel	DiscordChannel object received.
-*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
-*
-* @noreturn
 */
-typedef OnDiscordChannelDeleted = function void (DiscordChannel channel);
+typeset OnDiscordChannelDeleted
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param channel	DiscordChannel object received.
+	*					DiscordChannel handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordChannel channel, any data, any data2);
+}
 
 /**
 * The thread metadata object contains a number of thread-specific channel fields that are not needed by other channel types.
