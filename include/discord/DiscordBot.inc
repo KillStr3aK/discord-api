@@ -177,8 +177,10 @@ methodmap DiscordBot < JSON_Object
 	* 
     * @param guild			guild object with these values: https://discord.com/developers/docs/resources/guild#create-guild-json-params
     * @param callback		a DiscordGuild object on success.
+    * @param data		    custom data passed through the request to use in the callback
+	* @param data2		    custom data passed through the request to use in the callback
     */
-    public native void CreateGuild(DiscordGuild guild, OnDiscordGuildCreated callback);
+    public native void CreateGuild(DiscordGuild guild, OnDiscordGuildCreated callback, any data = 0, any data2 = 0);
 
     /**
     * Returns the guild object for the given id.
@@ -189,8 +191,10 @@ methodmap DiscordBot < JSON_Object
     * @param guildid		id of the guild you want to get.
     * @param with_counts	when true, will return approximate member and presence counts for the guild
     * @param callback		a DiscordGuild object on success.
+    * @param data		    custom data passed through the request to use in the callback
+	* @param data2		    custom data passed through the request to use in the callback
     */
-    public native void GetGuild(const char[] guildid, bool with_counts, OnGetDiscordGuild callback);
+    public native void GetGuild(const char[] guildid, bool with_counts, OnGetDiscordGuild callback, any data = 0, any data2 = 0);
 
     /**
     * Returns a guild member object for the specified user id.
@@ -200,8 +204,10 @@ methodmap DiscordBot < JSON_Object
     * @param guild			DiscordGuild from where you want to get the user.
     * @param user			DiscordUser that you want to get. (DiscordGuildUser object is different than a normal DiscordUser)
     * @param callback		a DiscordGuildUser object on success.
+    * @param data		    custom data passed through the request to use in the callback
+	* @param data2		    custom data passed through the request to use in the callback
     */
-    public native void GetGuildMember(DiscordGuild guild, DiscordUser user, OnGetDiscordGuildUser callback);
+    public native void GetGuildMember(DiscordGuild guild, DiscordUser user, OnGetDiscordGuildUser callback, any data = 0, any data2 = 0);
 
     /**
     * Returns a guild member object for the specified user id.
@@ -211,8 +217,10 @@ methodmap DiscordBot < JSON_Object
     * @param guildid		guild ID from where you want to get the user.
     * @param userid			user ID that you want to get. (DiscordGuildUser object is different than a normal DiscordUser)
     * @param callback		a DiscordGuildUser object on success.
+    * @param data		    custom data passed through the request to use in the callback
+	* @param data2		    custom data passed through the request to use in the callback
     */
-    public native void GetGuildMemberID(const char[] guildid, const char[] userid, OnGetDiscordGuildUser callback);
+    public native void GetGuildMemberID(const char[] guildid, const char[] userid, OnGetDiscordGuildUser callback, any data = 0, any data2 = 0);
 
 	/**
 	* Adds a role to a guild member.
@@ -267,7 +275,7 @@ methodmap DiscordBot < JSON_Object
     * You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
     * 
 	* @param user			the recipient to open a DM channel with
-    * @callback a DM channel object.
+    * @param callback       a DM channel object.
     */
     public native void CreateDM(DiscordUser user);
 
@@ -294,16 +302,20 @@ methodmap DiscordBot < JSON_Object
     *
     * @param channel		channel you want to delete.
     * @param callback		a channel object on success.
+    * @param data		    custom data passed through the request to use in the callback
+	* @param data2		    custom data passed through the request to use in the callback
     */
-    public native void DeleteChannel(DiscordChannel channel, OnDiscordChannelDeleted callback);
+    public native void DeleteChannel(DiscordChannel channel, OnDiscordChannelDeleted callback, any data = 0, any data2 = 0);
 
     /**
     * Delete a channel, or close a private message. Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
     *
     * @param channelid		ID of the channel that you want to delete.
 	* @param callback		a channel object on success.
+    * @param data		    custom data passed through the request to use in the callback
+	* @param data2		    custom data passed through the request to use in the callback
     */
-    public native void DeleteChannelID(const char[] channelid, OnDiscordChannelDeleted callback);
+    public native void DeleteChannelID(const char[] channelid, OnDiscordChannelDeleted callback, any data = 0, any data2 = 0);
 
     /**
     * Update a channel's settings.
@@ -312,8 +324,10 @@ methodmap DiscordBot < JSON_Object
 	* @param from			DiscordChannel the channel you want to modify.
     * @param to				DiscordChannel object with the modifies you want to apply to the channel.
     * @param callback		a channel on success, and a 400 BAD REQUEST on invalid parameters.
+    * @param data		    custom data passed through the request to use in the callback
+	* @param data2		    custom data passed through the request to use in the callback
     */
-    public native void ModifyChannel(DiscordChannel from, DiscordChannel to, OnDiscordChannelModified callback);
+    public native void ModifyChannel(DiscordChannel from, DiscordChannel to, OnDiscordChannelModified callback, any data = 0, any data2 = 0);
 
     /**
     * Update a channel's settings.
@@ -322,8 +336,10 @@ methodmap DiscordBot < JSON_Object
 	* @param channelid		id of the channel you want to modify.
     * @param to				DiscordChannel object with the modifies you want to apply to the channel.
     * @param callback		a channel on success, and a 400 BAD REQUEST on invalid parameters.
+    * @param data		    custom data passed through the request to use in the callback
+	* @param data2		    custom data passed through the request to use in the callback
     */
-    public native void ModifyChannelID(const char[] channelid, DiscordChannel to, OnDiscordChannelModified callback);
+    public native void ModifyChannelID(const char[] channelid, DiscordChannel to, OnDiscordChannelModified callback, any data = 0, any data2 = 0);
 
     /**
     * Post a message to a guild text or DM channel.
