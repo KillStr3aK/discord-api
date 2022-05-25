@@ -297,6 +297,18 @@ methodmap DiscordBot < JSON_Object
 	public native void ModifySelf(const char[] username, const char[] avatar = "");
 
 	/**
+	* Get a channel by ID.
+	* Returns a channel object.
+	* If the channel is a thread, a thread member object is included in the returned result.
+	*
+	* @param channelid		id of channel you want to get.
+	* @param callback		a channel object on success.
+	* @param data			custom data passed through the request to use in the callback
+	* @param data2			custom data passed through the request to use in the callback
+	*/
+	public native void GetChannel(const char[] channelid, OnGetDiscordChannel callback, any data = 0, any data2 = 0);
+
+	/**
 	* Delete a channel, or close a private message.
 	* Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
 	*
