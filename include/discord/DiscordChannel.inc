@@ -39,7 +39,6 @@ enum DiscordChannelFlags
 * @param bot		same handle as the bot you have used to call the native.
 * @param channel	DiscordChannel object received.
 * @param message	DiscordMessage object received.
-*					DiscordChannel and DiscordMessage handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
 *
 * @noreturn
 */
