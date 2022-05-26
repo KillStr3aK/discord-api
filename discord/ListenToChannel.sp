@@ -71,9 +71,9 @@ static int ReceivedData(const char[] data, DataPack pack)
 	}
 
 	char channelid[32];
-	JSON_Array messages = view_as<JSON_Array>(json_decode(data));
+	DiscordMessageList messages = view_as<DiscordMessageList>(json_decode(data));
 
-	for(int i = 0; i < messages.Length; i++)
+	for(int i = messages.Length - 1; i >= 0; i--)
 	{
 		DiscordMessage message = view_as<DiscordMessage>(messages.GetObject(i));
 		message.GetChannelID(channelid, sizeof(channelid));
@@ -97,6 +97,7 @@ static int ReceivedData(const char[] data, DataPack pack)
 		Call_PushCell(message);
 		Call_Finish();
 	}
-	
+
+	messages.Dispose();
 	CreateTimer(bot.MessageCheckInterval, GetMessageTimer, pack);
 }
