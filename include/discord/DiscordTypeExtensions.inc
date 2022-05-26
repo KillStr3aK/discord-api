@@ -3,7 +3,7 @@
 #endif
 #define _DiscordTypeExtensions_included_
 
-methodmap DiscordRoleList < JSON_Array
+methodmap DiscordTypeExtension < JSON_Array
 {
 	/**
 	* Release resources
@@ -15,5 +15,8 @@ methodmap DiscordRoleList < JSON_Array
 
 		this.Cleanup();
 		delete this;
-	}	
+	}
 }
+
+methodmap DiscordRoleList < DiscordTypeExtension { }
+methodmap DiscordMessageList < DiscordTypeExtension { }
