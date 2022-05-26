@@ -8,6 +8,7 @@
 #include <json>
 #include <DateTime>
 
+#include <discord/DiscordTypeExtensions>
 #include <discord/DiscordGatewayPayload>
 #include <discord/DiscordActivity>
 #include <discord/DiscordPresence>
