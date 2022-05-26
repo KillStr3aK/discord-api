@@ -30,7 +30,7 @@ enum DiscordPremiumTypes
 }
 
 #define MAX_DISCORD_USERNAME_LENGTH 32
-#define MAX_DISCORD_DISCRIMINATOR_LENGTH 4
+#define MAX_DISCORD_DISCRIMINATOR_LENGTH 5
 
 /**
 *	Users in Discord are generally considered the base entity.
