@@ -33,6 +33,18 @@ enum DiscordChannelFlags
 	PINNED = (1 << 1) /* this thread is pinned to the top of its parent forum channel */
 }
 
+/**
+* Called as callback when a new message received on a listened channel.
+*
+* @param bot		same handle as the bot you have used to call the native.
+* @param channel	DiscordChannel object received.
+* @param message	DiscordMessage object received.
+*					DiscordChannel and DiscordMessage handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+*
+* @noreturn
+*/
+typedef OnDiscordChannelMessage = function void (DiscordBot bot, DiscordChannel channel, DiscordMessage message);
+
 /** DiscordBot.ModifyChannel | DiscordBot.ModifyChannelID
 *
 * Called as callback after a successful request.
@@ -511,6 +523,14 @@ methodmap DiscordChannel < DiscordObject
 	public bool GetLastMessageID(char[] output, int maxsize)
 	{
 		return this.GetString("last_message_id", output, maxsize);
+	}
+
+	/**
+	*	the id of the last message sent in this channel (or thread for GUILD_FORUM channels) (may not point to an existing or valid message or thread)
+	*/
+	public void SetLastMessageID(const char[] output)
+	{
+		this.SetString("last_message_id", output);
 	}
 
 	/**
