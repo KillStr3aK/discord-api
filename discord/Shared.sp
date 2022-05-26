@@ -9,6 +9,7 @@ public int OnDiscordDataReceived(Handle request, bool failure, int offset, int s
 		
 		new DiscordException("OnDiscordDataReceived - Fail %i %i", failure, statuscode);
 		delete request;
+		delete pack;
 		return;
 	}
 
