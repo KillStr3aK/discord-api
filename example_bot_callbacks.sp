@@ -20,7 +20,6 @@ public Plugin myinfo =
 #define CHANNEL_ID	""
 
 DiscordBot discordBot = null;
-char listeningChannelID[32];
 
 public void OnPluginStart()
 {
@@ -39,8 +38,6 @@ public void OnChannelReceived(DiscordBot bot, DiscordChannel channel)
 	channel.GetName(szChannelName, sizeof(szChannelName));
 	PrintToServer("current channel name: %s", szChannelName);
 
-	channel.GetID(listeningChannelID, sizeof(listeningChannelID));
-
 	channel.SetName("random new name");
 	bot.ModifyChannel(channel, channel, INVALID_FUNCTION);
 
@@ -53,10 +50,13 @@ public void OnChannelReceived(DiscordBot bot, DiscordChannel channel)
 /* Simple discord->ingame chat relay */
 public void OnMessageReceived(DiscordBot bot, DiscordChannel channel, DiscordMessage message)
 {
-	char szMessage[256];
-	message.GetContent(szMessage, sizeof(szMessage));
+	if(message.Author.IsBot)
+		return;
 
 	DiscordUser user = message.GetAuthor();
+
+	char szMessage[256];
+	message.GetContent(szMessage, sizeof(szMessage));
 
 	char szUsername[MAX_DISCORD_USERNAME_LENGTH];
 	user.GetUsername(szUsername, sizeof(szUsername));
@@ -101,8 +101,6 @@ public void OnGuildUserReceived(DiscordBot bot, DiscordGuildUser user)
 
 public void OnPluginEnd()
 {
-	discordBot.StopListeningToChannelID(listeningChannelID);
-
 	/* totally pointless there but nvm */
 	discordBot.Dispose();
 }
