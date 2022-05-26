@@ -3,6 +3,8 @@
 #endif
 #define _DiscordChannel_included_
 
+#include <discord/DiscordObject>
+
 enum DiscordChannelType
 {
 	GUILD_TEXT = 0, /* a text channel within a server */
