@@ -237,7 +237,7 @@ methodmap DiscordMessage < DiscordObject
 	*/
 	property JSON_Object Components
 	{
-		public get() return this.GetObject("components");
+		public get() { return this.GetObject("components"); }
 	}
 
 	/**
