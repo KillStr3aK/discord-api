@@ -91,21 +91,6 @@ public int DiscordBot_CreateDMID(Handle plugin, int params)
 	CreateDM(bot, userid);
 }
 
-public int DiscordBot_StartListeningToChannel(Handle plugin, int params)
-{
-	DiscordBot bot = GetNativeCell(1);
-	DiscordChannel channel = GetNativeCell(2);
-	OnMessageSent callback = view_as<OnMessageSent>(GetNativeFunction(3));
-	StartListeningToChannel(bot, channel, callback);
-}
-
-public int DiscordBot_StopListeningToChannel(Handle plugin, int params)
-{
-	DiscordBot bot = GetNativeCell(1);
-	DiscordChannel channel = GetNativeCell(2);
-	StopListeningToChannel(bot, channel);
-}
-
 public int DiscordBot_GetChannel(Handle plugin, int params)
 {
 	DiscordBot bot = GetNativeCell(1);
@@ -153,15 +138,4 @@ static void GetChannel(DiscordBot bot, const char[] channelid, DataPack pack)
 	char route[64];
 	Format(route, sizeof(route), "channels/%s", channelid);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
-}
-
-/* Remains stock until unfinished */
-static stock void StartListeningToChannel(DiscordBot bot, DiscordChannel channel, OnMessageSent callback)
-{
-	/* Attach the bot to the channel and retrieve messages from discord api then call the callback function with the latest x messages one by one */
-}
-
-static stock void StopListeningToChannel(DiscordBot bot, DiscordChannel channel)
-{
-	/* Detach the bot from the channel */
 }
