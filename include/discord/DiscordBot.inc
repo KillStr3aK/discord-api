@@ -4,6 +4,7 @@
 #define _DiscordBot_included_
 
 #include <discord/DiscordIdentifyProperties>
+#include <discord/DiscordChannel>
 
 enum DiscordGatewayIntents
 {
@@ -144,6 +145,12 @@ methodmap DiscordBot < JSON_Object
 
 	/* - - */
 
+	property float MessageCheckInterval
+	{
+		public get() { return this.GetFloat("message_check_interval", 3.0); }
+		public set(float value) { this.SetFloat("message_check_interval", value); }
+	}
+
 	public DiscordBot(const char[] token/*, DiscordPresence presence, DiscordGatewayPayload payload = null*/)
 	{
 		JSON_Object obj = new JSON_Object();
@@ -153,6 +160,109 @@ methodmap DiscordBot < JSON_Object
 		return view_as<DiscordBot>(obj);
 	}
 
+	public JSON_Array GetListeningChannels()
+	{
+		return view_as<JSON_Array>(this.GetObject("listening_channels"));
+	}
+
+	/**
+	* Checks if the bot is listening to channel for messages
+	* @param channelid channel id.
+	*/
+	public bool IsListeningToChannelID(const char[] channelid)
+	{
+		JSON_Array channels = this.GetListeningChannels();
+		if(channels != null)
+		{
+			for(int i = 0; i < channels.Length; i++)
+			{
+				static char tempID[32];
+				channels.GetString(i, tempID, sizeof(tempID));
+
+				if(StrEqual(channelid, tempID, false))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	* Checks if the bot is listening to channel for messages
+	* @param channel		channel object.
+	*/
+	public bool IsListeningToChannel(DiscordChannel channel)
+	{
+		char channelid[32];
+		channel.GetID(channelid, sizeof(channelid));
+		return this.IsListeningToChannelID(channelid);
+	}
+
+	/**
+	* Stops the bot from listening to that channel id for messages
+	* @param channelid		channel id.
+	*/
+	public void StopListeningToChannelID(const char[] channelid)
+	{
+		JSON_Array channels = this.GetListeningChannels();
+		if(channels != null)
+		{
+			for(int i = 0; i < channels.Length; i++)
+			{
+				static char tempID[32];
+				channels.GetString(i, tempID, sizeof(tempID));
+
+				if(StrEqual(channelid, tempID))
+				{
+					channels.Remove(i);
+					i--;
+				}
+			}
+		}
+	}
+
+	public native void StartTimer(DiscordChannel channel, OnDiscordChannelMessage callback);
+
+	/**
+	* Stops the bot from listening to that channel id for messages
+	* @param channel		channel object.
+	*/
+	public void StopListeningToChannel(DiscordChannel channel)
+	{
+		char channelid[32];
+		channel.GetID(channelid, sizeof(channelid));
+		this.StopListeningToChannelID(channelid);
+	}
+
+	/**
+	* Start listening to the channel for messages.
+	* @param channel		channel object.
+	*/
+	public void StartListeningToChannel(DiscordChannel channel, OnDiscordChannelMessage callback)
+	{
+		if(this.IsListeningToChannel(channel))
+			return;
+
+		JSON_Array channels = this.GetListeningChannels();
+		if(channels == null)
+		{
+			channels = new JSON_Array();
+			this.SetObject("listening_channels", channels);
+		}
+
+		char channelid[32];
+		channel.GetID(channelid, sizeof(channelid));
+		channels.PushString(channelid);
+		this.StartTimer(channel, callback);
+	}
+
+	/**
+	* Get the bot token.
+	* @param output			output buffer.
+	* @param maxsize		maximum length.
+	*/
 	public bool GetToken(char[] output, int maxsize)
 	{
 		return this.GetString("token", output, maxsize);
