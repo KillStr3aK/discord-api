@@ -14,12 +14,13 @@ public Plugin myinfo =
 	url = "https://github.com/KillStr3aK"
 };
 
-#define BOT_TOKEN	""
-#define GUILD_ID	""
-#define USER_ID		""
-#define CHANNEL_ID	""
+#define BOT_TOKEN	"Njk3MjQ3MzkyMzE1MjExODU3.GWVzr-.sTTUl8S1VyfrD3has4A_pIcbzN9-rgrqcg2VwI"
+#define GUILD_ID	"842894889053061161"
+#define USER_ID		"308174131138920450"
+#define CHANNEL_ID	"842894889494380595"
 
 DiscordBot discordBot = null;
+char listeningChannelID[32];
 
 public void OnPluginStart()
 {
@@ -36,16 +37,31 @@ public void OnChannelReceived(DiscordBot bot, DiscordChannel channel)
 {
 	char szChannelName[32];
 	channel.GetName(szChannelName, sizeof(szChannelName));
-	PrintToServer("Channel name: %s", szChannelName);
+	PrintToServer("current channel name: %s", szChannelName);
 
-	/* Cloning the channel handle so we have the same properties and only change the things we want to modify. */
-	DiscordChannel modifyTo = view_as<DiscordChannel>(CloneHandle(channel));
-	modifyTo.SetName("not general");
-	bot.ModifyChannel(channel, modifyTo, INVALID_FUNCTION);
+	channel.GetID(listeningChannelID, sizeof(listeningChannelID));
 
-	/* Release resources */
-	channel.Dispose();
-	modifyTo.Dispose();
+	channel.SetName("random new name 2");
+	bot.ModifyChannel(channel, channel, INVALID_FUNCTION);
+
+	bot.StartListeningToChannel(channel, OnMessageReceived);
+}
+
+/* Simple discord->ingame chat relay */
+public void OnMessageReceived(DiscordBot bot, DiscordChannel channel, DiscordMessage message)
+{
+	char szMessage[256];
+	message.GetContent(szMessage, sizeof(szMessage));
+
+	DiscordUser user = message.GetAuthor();
+
+	char szUsername[MAX_DISCORD_USERNAME_LENGTH];
+	user.GetUsername(szUsername, sizeof(szUsername));
+
+	char szDiscriminator[MAX_DISCORD_DISCRIMINATOR_LENGTH];
+	user.GetDiscriminator(szDiscriminator, sizeof(szDiscriminator));
+
+	PrintToChatAll("%s#%s: %s", szUsername, szDiscriminator, szMessage);
 }
 
 public void OnChannelDeleted(DiscordBot bot, DiscordChannel channel)
@@ -82,6 +98,8 @@ public void OnGuildUserReceived(DiscordBot bot, DiscordGuildUser user)
 
 public void OnPluginEnd()
 {
+	discordBot.StopListeningToChannelID(listeningChannelID);
+
 	/* totally pointless there but nvm */
 	discordBot.Dispose();
 }

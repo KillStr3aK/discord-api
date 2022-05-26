@@ -9,6 +9,7 @@
 #include "discord/Message.sp"
 #include "discord/Reaction.sp"
 #include "discord/User.sp"
+#include "discord/ListenToChannel.sp"
 #include "discord/Channel.sp"
 #include "discord/Guild.sp"
 
@@ -26,8 +27,7 @@ public Plugin myinfo =
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
-	CreateNative("DiscordBot.StartListeningToChannel", DiscordBot_StartListeningToChannel);
-	CreateNative("DiscordBot.StopListeningToChannel", DiscordBot_StopListeningToChannel);
+	CreateNative("DiscordBot.StartTimer", DiscordBot_StartTimer);
 
 	CreateNative("DiscordBot.CreateGuild", DiscordBot_CreateGuild);
 	CreateNative("DiscordBot.GetGuild", DiscordBot_GetGuild);
