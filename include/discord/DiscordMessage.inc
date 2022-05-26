@@ -70,8 +70,6 @@ enum DiscordMessageType
 	CONTEXT_MENU_COMMAND = 23
 }
 
-typedef OnMessageSent = function void (DiscordChannel channel, DiscordMessage message);
-
 /**
 * Represents a sticker that can be sent in messages.
 */
