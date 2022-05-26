@@ -26,10 +26,6 @@ public void OnPluginStart()
 	discordBot = new DiscordBot(BOT_TOKEN);
 	discordBot.GetGuild(GUILD_ID, true, OnGuildReceived);
 	discordBot.GetChannel(CHANNEL_ID, OnChannelReceived);
-
-	/* Same channel cannot be deleted twice..
-	discordBot.DeleteChannelID(CHANNEL_ID, OnChannelDeleted);
-	*/
 }
 
 public void OnChannelReceived(DiscordBot bot, DiscordChannel channel)
@@ -43,7 +39,7 @@ public void OnChannelReceived(DiscordBot bot, DiscordChannel channel)
 
 	bot.StartListeningToChannel(channel, OnMessageReceived);
 
-	/* you shouldn't dispose the channel in this case because the bot is listening to this channel */
+	/* you shouldn't dispose the channel in this case because the bot is listening to it */
 	//channel.Dispose();
 }
 
@@ -65,15 +61,6 @@ public void OnMessageReceived(DiscordBot bot, DiscordChannel channel, DiscordMes
 	user.GetDiscriminator(szDiscriminator, sizeof(szDiscriminator));
 
 	PrintToChatAll("%s#%s: %s", szUsername, szDiscriminator, szMessage);
-}
-
-public void OnChannelDeleted(DiscordBot bot, DiscordChannel channel)
-{
-	char szChannelName[32];
-	channel.GetName(szChannelName, sizeof(szChannelName));
-	PrintToServer("Deleted channel: %s", szChannelName);
-
-	channel.Dispose();
 }
 
 public void OnGuildReceived(DiscordBot bot, DiscordGuild guild)
