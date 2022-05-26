@@ -41,10 +41,13 @@ public void OnChannelReceived(DiscordBot bot, DiscordChannel channel)
 
 	channel.GetID(listeningChannelID, sizeof(listeningChannelID));
 
-	channel.SetName("random new name 2");
+	channel.SetName("random new name");
 	bot.ModifyChannel(channel, channel, INVALID_FUNCTION);
 
 	bot.StartListeningToChannel(channel, OnMessageReceived);
+
+	/* you shouldn't dispose the channel in this case because the bot is listening to this channel */
+	//channel.Dispose();
 }
 
 /* Simple discord->ingame chat relay */
