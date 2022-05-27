@@ -4,7 +4,6 @@
 #define _DiscordGuildUser_included_
 
 #include <discord/DiscordUser>
-#include <discord/API/DiscordRoleList>
 
 #define MAX_DISCORD_NICKNAME_LENGTH 32
 
