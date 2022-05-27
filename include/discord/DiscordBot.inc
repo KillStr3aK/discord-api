@@ -382,7 +382,9 @@ methodmap DiscordBot < JSON_Object
 
 	/**
 	* Create a new DM channel with a user.
-	* You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+	* You should not use this endpoint to DM everyone in a server about something.
+	* DMs should generally be initiated by a user action.
+	* If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
 	* 
 	* @param user			the recipient to open a DM channel with
 	* @param callback		a DM channel object.
@@ -391,7 +393,9 @@ methodmap DiscordBot < JSON_Object
 
 	/**
 	* Create a new DM channel with a user.
-	* You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+	* You should not use this endpoint to DM everyone in a server about something.
+	* DMs should generally be initiated by a user action.
+	* If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
 	* 
 	* @param userid			the recipient user id to open a DM channel with
 	* @param callback		a DM channel object.
@@ -430,7 +434,8 @@ methodmap DiscordBot < JSON_Object
 	public native void DeleteChannel(DiscordChannel channel, OnDiscordChannelDeleted callback, any data = 0, any data2 = 0);
 
 	/**
-	* Delete a channel, or close a private message. Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
+	* Delete a channel, or close a private message.
+	* Requires the MANAGE_CHANNELS permission for the guild, or MANAGE_THREADS if the channel is a thread.
 	*
 	* @param channelid		ID of the channel that you want to delete.
 	* @param callback		a channel object on success.
@@ -488,8 +493,14 @@ methodmap DiscordBot < JSON_Object
 	public native void SendMessageToChannelID(const char[] channel, DiscordMessage message);
 
 	/**
-	* Edit a previously sent message. The fields content, embeds, and flags can be edited by the original message author. Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
-	* When the content field is edited, the mentions array in the message object will be reconstructed from scratch based on the new content. The allowed_mentions field of the edit request controls how this happens. If there is no explicit allowed_mentions in the edit request, the content will be parsed with default allowances, that is, without regard to whether or not an allowed_mentions was present in the request that originally created the message.
+	* Edit a previously sent message.
+	* The fields content, embeds, and flags can be edited by the original message author.
+	* Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel.
+	* When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying.
+	* Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+	* When the content field is edited, the mentions array in the message object will be reconstructed from scratch based on the new content.
+	* The allowed_mentions field of the edit request controls how this happens.
+	* If there is no explicit allowed_mentions in the edit request, the content will be parsed with default allowances, that is, without regard to whether or not an allowed_mentions was present in the request that originally created the message.
 	* Fires a Message Update Gateway event.
 	* 
 	* @param channel		DiscordChannel where the message is located.
@@ -500,8 +511,13 @@ methodmap DiscordBot < JSON_Object
 	public native void EditMessage(DiscordChannel channel, DiscordMessage from, DiscordMessage to);
 
 	/**
-	* Edit a previously sent message. The fields content, embeds, and flags can be edited by the original message author. Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
-	* When the content field is edited, the mentions array in the message object will be reconstructed from scratch based on the new content. The allowed_mentions field of the edit request controls how this happens. If there is no explicit allowed_mentions in the edit request, the content will be parsed with default allowances, that is, without regard to whether or not an allowed_mentions was present in the request that originally created the message.
+	* Edit a previously sent message. The fields content, embeds, and flags can be edited by the original message author.
+	* Other users can only edit flags and only if they have the MANAGE_MESSAGES permission in the corresponding channel.
+	* When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying.
+	* Only flags documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+	* When the content field is edited, the mentions array in the message object will be reconstructed from scratch based on the new content.
+	* The allowed_mentions field of the edit request controls how this happens.
+	* If there is no explicit allowed_mentions in the edit request, the content will be parsed with default allowances, that is, without regard to whether or not an allowed_mentions was present in the request that originally created the message.
 	* Fires a Message Update Gateway event.
 	* 
 	* @param channelid		id of the channel where the message is located.
@@ -511,14 +527,49 @@ methodmap DiscordBot < JSON_Object
 	*/
 	public native void EditMessageID(const char[] channelid, const char[] messageid, DiscordMessage to);
 
+	/**
+	* Pin a message in a channel.
+	* Requires the MANAGE_MESSAGES permission.
+	* Returns a 204 empty response on success.
+	*
+	* @param channel	channel where the message is located.
+	* @param message	message you want to pin.
+	*/
 	public native void PinMessage(DiscordChannel channel, DiscordMessage message);
+
+	/**
+	* Pin a message in a channel.
+	* Requires the MANAGE_MESSAGES permission.
+	* Returns a 204 empty response on success.
+	*
+	* @param channel	id of the channel where the message is located.
+	* @param message	id of the message you want to pin.
+	*/
 	public native void PinMessageID(const char[] channelid, const char[] messageid);
 
+	/**
+	* Unpin a message in a channel.
+	* Requires the MANAGE_MESSAGES permission.
+	* Returns a 204 empty response on success.
+	*
+	* @param channel	channel where the message is located.
+	* @param message	message you want to unpin.
+	*/
 	public native void UnpinMessage(DiscordChannel channel, DiscordMessage message);
+
+	/**
+	* Unpin a message in a channel.
+	* Requires the MANAGE_MESSAGES permission.
+	* Returns a 204 empty response on success.
+	*
+	* @param channel	id of the channel where the message is located.
+	* @param message	id of the message you want to unpin.
+	*/
 	public native void UnpinMessageID(const char[] channelid, const char[] messageid);
 
 	/**
-	* Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
+	* Delete a message.
+	* If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
 	*
 	* @param channel		channel where the message is.
 	* @param message		message you want to delete.
@@ -526,7 +577,8 @@ methodmap DiscordBot < JSON_Object
 	public native void DeleteMessage(DiscordChannel channel, DiscordMessage message);
 
 	/**
-	* Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
+	* Delete a message.
+	* If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
 	*
 	* @param channelid		channel id where the message is.
 	* @param messageid		message id you want to delete.
@@ -534,7 +586,8 @@ methodmap DiscordBot < JSON_Object
 	public native void DeleteMessageID(const char[] channelid, const char[] messageid);
 
 	/**
-	* Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the MANAGE_MESSAGES permission.
+	* Delete multiple messages in a single request.
+	* This endpoint can only be used on guild channels and requires the MANAGE_MESSAGES permission.
 	*
 	* @param channel		channel where the message is.
 	* @param messages		an array of message ids to delete (2-100).
@@ -542,7 +595,9 @@ methodmap DiscordBot < JSON_Object
 	public native void DeleteMessagesBulk(DiscordChannel channel, JSON_Array messages);
 
 	/**
-	* Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
+	* Create a reaction for the message.
+	* This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user.
+	* Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
 	*
 	* @param channel		channel where the message is.
 	* @param message		message that you want to react to.
@@ -551,7 +606,9 @@ methodmap DiscordBot < JSON_Object
 	public native void CreateReaction(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji);
 		
 	/**
-	* Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
+	* Create a reaction for the message.
+	* This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user.
+	* Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
 	*
 	* @param channelid		channel id where the message is.
 	* @param messageid		message id that you want to react to.
@@ -559,15 +616,87 @@ methodmap DiscordBot < JSON_Object
 	*/
 	public native void CreateReactionID(const char[] channelid, const char[] messageid, DiscordEmoji emoji);
 
+	/**
+	* Delete a reaction the current user has made for the message.
+	* Returns a 204 empty response on success. 
+	*
+	* @param channel		channel where the message is.
+	* @param message		message that has the reaction.
+	* @param emoji			reaction emoji you want to delete.
+	*/
 	public native void DeleteOwnReaction(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji);
+
+	/**
+	* Delete a reaction the current user has made for the message.
+	* Returns a 204 empty response on success. 
+	*
+	* @param channel		id of the channel where the message is.
+	* @param message		id of the message that has the reaction.
+	* @param emoji			reaction emoji you want to delete.
+	*/
 	public native void DeleteOwnReactionID(const char[] channelid, const char[] messageid, DiscordEmoji emoji);
 
+	/**
+	* Deletes another user's reaction.
+	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
+	* Returns a 204 empty response on success. 
+	*
+	* @param channel		channel where the message is.
+	* @param message		message that has the reaction.
+	* @param emoji			reaction emoji you want to delete.
+	* @param user			user who used the reaction.
+	*/
 	public native void DeleteReaction(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji, DiscordUser user);
+
+	/**
+	* Deletes another user's reaction.
+	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
+	* Returns a 204 empty response on success. 
+	*
+	* @param channel		id of the channel where the message is.
+	* @param message		id of the message that has the reaction.
+	* @param emoji			reaction emoji you want to delete.
+	* @param user			user who used the reaction.
+	*/
 	public native void DeleteReactionID(const char[] channelid, const char[] messageid, DiscordEmoji emoji, DiscordUser user);
 
+	/**
+	* Deletes all reactions on a message.
+	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
+	* Fires a Message Reaction Remove All Gateway event.
+	*
+	* @param channel		channel where the message is.
+	* @param message		message that has the reaction.
+	*/
 	public native void DeleteAllReactions(DiscordChannel channel, DiscordMessage message);
+
+	/**
+	* Deletes all reactions on a message.
+	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
+	* Fires a Message Reaction Remove All Gateway event.
+	*
+	* @param channel		id of the channel where the message is.
+	* @param message		id of the message that has the reaction.
+	*/
 	public native void DeleteAllReactionsID(const char[] channelid, const char[] messageid);
 
+	/**
+	* Deletes all the reactions for a given emoji on a message.
+	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
+	* Fires a Message Reaction Remove Emoji Gateway event. 
+	*
+	* @param channel		channel where the message is.
+	* @param message		message that has the reaction.
+	*/
 	public native void DeleteAllReactionsEmoji(DiscordChannel channel, DiscordMessage message, DiscordEmoji emoji);
+
+	/**
+	* Deletes all the reactions for a given emoji on a message.
+	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
+	* Fires a Message Reaction Remove Emoji Gateway event. 
+	*
+	* @param channel		id of the channel where the message is.
+	* @param message		id of the message that has the reaction.
+	*/
 	public native void DeleteAllReactionsEmojiID(const char[] channelid, const char[] messageid, DiscordEmoji emoji);
 }
