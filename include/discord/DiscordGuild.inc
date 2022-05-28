@@ -211,6 +211,129 @@ typeset OnGetDiscordGuildUser
 	function void (DiscordBot bot, DiscordGuildUser guildUser, any data, any data2);
 }
 
+methodmap ScheduledEventMetaData < JSON_Object
+{
+	/**
+	*	location of the event (1-100 characters)
+	*/
+	public bool GetLocation(char[] output, int maxsize)
+	{
+		return this.GetString("location", output, maxsize);
+	}
+
+}
+
+/**
+* A representation of a scheduled event in a guild.
+*/
+methodmap DiscordGuildScheduledEvent < DiscordObject
+{
+	/**
+	*	the user that created the scheduled event
+	*/
+	property DiscordUser Creator
+	{
+		public get() { return view_as<DiscordUser>(this.GetObject("creator")); }
+	}
+
+	/**
+	*	the number of users subscribed to the scheduled event
+	*/
+	property int UserCount
+	{
+		public get() { return this.GetInt("user_count"); }
+	}
+
+	/**
+	*	the status of the scheduled event
+	*/
+	property DiscordGuildScheduledEventStatus Status
+	{
+		public get() { return view_as<DiscordGuildScheduledEventStatus>(this.GetInt("status")); }
+	}
+
+	/**
+	*	the privacy level of the scheduled event
+	*/
+	property DiscordGuildScheduledEventPrivacyLevel PrivacyLevel
+	{
+		public get() { return view_as<DiscordGuildScheduledEventPrivacyLevel>(this.GetInt("privacy_level")); }
+	}
+
+	/**
+	*	the type of the scheduled event
+	*/
+	property DiscordGuildScheduledEventEntityType Type
+	{
+		public get() { return view_as<DiscordGuildScheduledEventEntityType>(this.GetInt("entity_type")); }
+	}
+
+	/**
+	*	additional metadata for the guild scheduled event
+	*/
+	property ScheduledEventMetaData MetaData
+	{
+		public get() { return view_as<ScheduledEventMetaData>(this.GetObject("entity_metadata")); }
+	}
+
+	/**
+	*	the guild id which the scheduled event belongs to
+	*/
+	public bool GetGuildID(char[] output, int maxsize)
+	{
+		return this.GetString("guild_id", output, maxsize);
+	}
+
+	/**
+	*	the id of an entity associated with a guild scheduled event
+	*/
+	public bool GetEntityID(char[] output, int maxsize)
+	{
+		return this.GetString("entity_id", output, maxsize);
+	}
+
+	/**
+	*	the channel id in which the scheduled event will be hosted, or null if scheduled entity type is EXTERNAL
+	*/
+	public bool GetChannelID(char[] output, int maxsize)
+	{
+		return this.GetString("channel_id", output, maxsize);
+	}
+
+	/**
+	*	the id of the user that created the scheduled event
+	*/
+	public bool GetCreatorID(char[] output, int maxsize)
+	{
+		return this.GetString("creator_id", output, maxsize);
+	}
+
+	/**
+	*	the name of the scheduled event (1-100 characters)
+	*/
+	public bool GetName(char[] output, int maxsize)
+	{
+		return this.GetString("name", output, maxsize);
+	}
+
+	/**
+	*	the description of the scheduled event (1-1000 characters)
+	*/
+	public bool GetDescription(char[] output, int maxsize)
+	{
+		return this.GetString("description", output, maxsize);
+	}
+
+	/**
+		the cover image hash of the scheduled event
+		( https://discord.com/developers/docs/reference#image-formatting )
+	*/
+	public bool GetImage(char[] output, int maxsize)
+	{
+		return this.GetString("image", output, maxsize);
+	}
+}
+
 methodmap DiscordIntegrationAccount < JSON_Object
 {
 	/**
