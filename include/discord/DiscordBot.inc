@@ -398,7 +398,7 @@ methodmap DiscordBot < JSON_Object
 	* If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
 	* 
 	* @param user			the recipient to open a DM channel with
-	* @param callback		a DM channel object.
+	* @param callback		a DM channel object. (TODO)
 	*/
 	public native void CreateDM(DiscordUser user);
 
@@ -409,7 +409,7 @@ methodmap DiscordBot < JSON_Object
 	* If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
 	* 
 	* @param userid			the recipient user id to open a DM channel with
-	* @param callback		a DM channel object.
+	* @param callback		a DM channel object. (TODO)
 	*/
 	public native void CreateDMID(const char[] userid);
 
@@ -417,7 +417,7 @@ methodmap DiscordBot < JSON_Object
 	* 
 	* @param username		user's username, if changed may cause the user's discriminator to be randomized.
 	* @param avatar			if passed, modifies the user's avatar
-	* @param callback		a user object on success.
+	* @param callback		a user object on success. (TODO)
 	*/
 	public native void ModifySelf(const char[] username, const char[] avatar = "");
 
@@ -487,7 +487,7 @@ methodmap DiscordBot < JSON_Object
 	* 
 	* @param channel		DiscordChannel where you want to send the message. (Can be DM)
 	* @param message		DiscordMessage object that you want to send.
-	* @param callback 		a message object.
+	* @param callback 		a message object. (TODO)
 	*/
 	public native void SendMessageToChannel(DiscordChannel channel, DiscordMessage message);
 
@@ -499,7 +499,7 @@ methodmap DiscordBot < JSON_Object
 	* 
 	* @param channelid		id of the channel where you want to send the message.
 	* @param message		DiscordMessage object that you want to send.
-	* @param callback 		a message object.
+	* @param callback 		a message object. (TODO)
 	*/
 	public native void SendMessageToChannelID(const char[] channelid, DiscordMessage message);
 
@@ -517,7 +517,7 @@ methodmap DiscordBot < JSON_Object
 	* @param channel		DiscordChannel where the message is located.
 	* @param from			DiscordMessage that you want to edit.
 	* @param to				DiscordMessage with the modifies you want to apply to the message.
-	* @param callback 		a message object.
+	* @param callback 		a message object. (TODO)
 	*/
 	public native void EditMessage(DiscordChannel channel, DiscordMessage from, DiscordMessage to);
 
@@ -534,7 +534,7 @@ methodmap DiscordBot < JSON_Object
 	* @param channelid		id of the channel where the message is located.
 	* @param messageid		id of the message that you want to edit.
 	* @param to				DiscordMessage with the modifies you want to apply to the message.
-	* @param callback 		a message object.
+	* @param callback 		a message object. (TODO)
 	*/
 	public native void EditMessageID(const char[] channelid, const char[] messageid, DiscordMessage to);
 
