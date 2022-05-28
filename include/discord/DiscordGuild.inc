@@ -279,7 +279,7 @@ methodmap DiscordGuildScheduledEventUser < JSON_Object
 	*/
 	property DiscordGuildUser Member
 	{
-		public get() { return view_as<DiscordUser>(this.GetObject("member")); }
+		public get() { return view_as<DiscordGuildUser>(this.GetObject("member")); }
 	}
 
 	/**
