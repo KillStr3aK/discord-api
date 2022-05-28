@@ -226,7 +226,7 @@ typeset OnGetDiscordGuildScheduledEvent
 	*
 	* @noreturn
 	*/
-	function void (DiscordBot bot, DiscordGuildScheduledEvent guild);
+	function void (DiscordBot bot, DiscordGuildScheduledEvent event);
 
 	/**
 	*
@@ -237,7 +237,7 @@ typeset OnGetDiscordGuildScheduledEvent
 	*
 	* @noreturn
 	*/
-	function void (DiscordBot bot, DiscordGuildScheduledEvent guild, any data);
+	function void (DiscordBot bot, DiscordGuildScheduledEvent event, any data);
 
 	/**
 	*
@@ -249,7 +249,7 @@ typeset OnGetDiscordGuildScheduledEvent
 	*
 	* @noreturn
 	*/
-	function void (DiscordBot bot, DiscordGuildScheduledEvent guild, any data, any data2);
+	function void (DiscordBot bot, DiscordGuildScheduledEvent event, any data, any data2);
 }
 
 methodmap ScheduledEventMetaData < JSON_Object
