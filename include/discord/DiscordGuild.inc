@@ -211,6 +211,47 @@ typeset OnGetDiscordGuildUser
 	function void (DiscordBot bot, DiscordGuildUser guildUser, any data, any data2);
 }
 
+/** DiscordBot.GetGuildScheduledEvent
+*
+* Called as callback after a successful request.
+*
+*/
+typeset OnGetDiscordGuildScheduledEvent
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuildScheduledEvent object received.
+	*					DiscordGuildScheduledEvent handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuildScheduledEvent guild);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuildScheduledEvent object received.
+	*					DiscordGuildScheduledEvent handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuildScheduledEvent guild, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param guild		DiscordGuildScheduledEvent object received.
+	*					DiscordGuildScheduledEvent handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordGuildScheduledEvent guild, any data, any data2);
+}
+
 methodmap ScheduledEventMetaData < JSON_Object
 {
 	/**

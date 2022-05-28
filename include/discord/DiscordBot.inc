@@ -344,6 +344,18 @@ methodmap DiscordBot < JSON_Object
 	public native void GetGuildMemberID(const char[] guildid, const char[] userid, OnGetDiscordGuildUser callback, any data = 0, any data2 = 0);
 
 	/**
+	* Get a guild scheduled event.
+	* Returns a guild scheduled event object on success.
+	* 
+	* @param guild			guild that has the event scheduled.
+	* @param eventid		id of the event.
+	* @param callback		a guild scheduled event object on success.
+	* @param data			custom data passed through the request to use in the callback
+	* @param data2			custom data passed through the request to use in the callback
+	*/
+	public native void GetGuildScheduledEvent(DiscordGuild guild, const char[] eventid, OnGetDiscordGuildScheduledEvent callback, any data = 0, any data2 = 0);
+
+	/**
 	* Adds a role to a guild member.
 	* Requires the MANAGE_ROLES permission.
 	* Returns a 204 empty response on success.

@@ -142,6 +142,28 @@ public int DiscordBot_GetGuildMemberID(Handle plugin, int params)
 	GetGuildMember(bot, guildid, userid, pack);
 }
 
+public int DiscordBot_GetGuildScheduledEvent(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+	DiscordGuild guild = GetNativeCell(2);
+
+	char guildid[64];
+	guild.GetID(guildid, sizeof(guildid));
+
+	char eventid[64];
+	GetNativeString(3, eventid, sizeof(eventid));
+
+	OnGetDiscordGuildScheduledEvent cb = view_as<OnGetDiscordGuildScheduledEvent>(GetNativeFunction(4));
+	
+	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(5));
+	pack.WriteCell(GetNativeCell(6));
+	GetGuildScheduledEvent(bot, guildid, eventid, pack);
+}
+
 static void CreateGuild(DiscordBot bot, DiscordGuild guild, DataPack pack)
 {
 	char route[128];
@@ -174,5 +196,12 @@ static void GetGuildMember(DiscordBot bot, const char[] guildid, const char[] us
 {
 	char route[128];
 	Format(route, sizeof(route), "guilds/%s/members/%s", guildid, userid);
+	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
+}
+
+static void GetGuildScheduledEvent(DiscordBot bot, const char[] guildid, const char[] eventid, DataPack pack)
+{
+	char route[128];
+	Format(route, sizeof(route), "guilds/%s/scheduled-events/%s", guildid, eventid);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
 }
