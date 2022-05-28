@@ -310,7 +310,7 @@ static void UnpinMessage(DiscordBot bot, const char[] channelid, const char[] me
 
 static void GetChannelMessages(DiscordBot bot, const char[] channelid, const char[] around, const char[] before, const char[] after, int limit, DataPack pack)
 {
-	char route[64];
+	char route[256];
 	Format(route, sizeof(route), "channels/%s/messages?around=%s&before=%s&after=%s&limit=%i", channelid, around, before, after, limit);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
 }
