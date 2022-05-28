@@ -497,7 +497,7 @@ methodmap DiscordBot < JSON_Object
 	* See https://discord.com/developers/docs/reference#message-formatting for more information on how to properly format messages.
 	* Files must be attached using a multipart/form-data body as described in Uploading Files. (Not supported yet)
 	* 
-	* @param channel		id of the channel where you want to send the message.
+	* @param channelid		id of the channel where you want to send the message.
 	* @param message		DiscordMessage object that you want to send.
 	* @param callback 		a message object.
 	*/
@@ -553,7 +553,7 @@ methodmap DiscordBot < JSON_Object
 	* Requires the MANAGE_MESSAGES permission.
 	* Returns a 204 empty response on success.
 	*
-	* @param channel		id of the channel where the message is located.
+	* @param channelid		id of the channel where the message is located.
 	* @param message		id of the message you want to pin.
 	*/
 	public native void PinMessageID(const char[] channelid, const char[] messageid);
@@ -573,7 +573,7 @@ methodmap DiscordBot < JSON_Object
 	* Requires the MANAGE_MESSAGES permission.
 	* Returns a 204 empty response on success.
 	*
-	* @param channel		id of the channel where the message is located.
+	* @param channelid		id of the channel where the message is located.
 	* @param message		id of the message you want to unpin.
 	*/
 	public native void UnpinMessageID(const char[] channelid, const char[] messageid);
@@ -628,7 +628,7 @@ methodmap DiscordBot < JSON_Object
 	* If the current user is missing the READ_MESSAGE_HISTORY permission in the channel then this will return no messages (since they cannot read the message history).
 	* Returns an array of message objects on success.
 	*
-	* @param channel		id of the channel where the message(s) are located.
+	* @param channelid		id of the channel where the message(s) are located.
 	* @param around			Get messages around this message ID (absent by default)
 	* @param before			Get messages before this message ID (absent by default)
 	* @param after			Get messages after this message ID (absent by default)
@@ -657,7 +657,7 @@ methodmap DiscordBot < JSON_Object
 	* If operating on a guild channel, this endpoint requires the READ_MESSAGE_HISTORY permission to be present on the current user.
 	* Returns a message object on success.
 	*
-	* @param channel		id of the channel where the message is located.
+	* @param channelid		id of the channel where the message is located.
 	* @param messageid		id of the message.
 	* @param callback		a message object on success.
 	* @param data			custom data passed through the request to use in the callback
@@ -701,7 +701,7 @@ methodmap DiscordBot < JSON_Object
 	* Delete a reaction the current user has made for the message.
 	* Returns a 204 empty response on success. 
 	*
-	* @param channel		id of the channel where the message is.
+	* @param channelid		id of the channel where the message is.
 	* @param message		id of the message that has the reaction.
 	* @param emoji			reaction emoji you want to delete.
 	*/
@@ -724,7 +724,7 @@ methodmap DiscordBot < JSON_Object
 	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
 	* Returns a 204 empty response on success. 
 	*
-	* @param channel		id of the channel where the message is.
+	* @param channelid		id of the channel where the message is.
 	* @param message		id of the message that has the reaction.
 	* @param emoji			reaction emoji you want to delete.
 	* @param user			user who used the reaction.
@@ -746,7 +746,7 @@ methodmap DiscordBot < JSON_Object
 	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
 	* Fires a Message Reaction Remove All Gateway event.
 	*
-	* @param channel		id of the channel where the message is.
+	* @param channelid		id of the channel where the message is.
 	* @param message		id of the message that has the reaction.
 	*/
 	public native void DeleteAllReactionsID(const char[] channelid, const char[] messageid);
@@ -766,7 +766,7 @@ methodmap DiscordBot < JSON_Object
 	* This endpoint requires the MANAGE_MESSAGES permission to be present on the current user.
 	* Fires a Message Reaction Remove Emoji Gateway event. 
 	*
-	* @param channel		id of the channel where the message is.
+	* @param channelid		id of the channel where the message is.
 	* @param message		id of the message that has the reaction.
 	*/
 	public native void DeleteAllReactionsEmojiID(const char[] channelid, const char[] messageid, DiscordEmoji emoji);
