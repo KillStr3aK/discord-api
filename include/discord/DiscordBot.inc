@@ -460,7 +460,7 @@ methodmap DiscordBot < JSON_Object
 	* All JSON parameters are optional.
 	* 
 	* @param from			DiscordChannel the channel you want to modify.
-	* @param to				DiscordChannel object with the modifies you want to apply to the channel.
+	* @param to 			DiscordChannel object with the modifies you want to apply to the channel.
 	* @param callback		a channel on success, and a 400 BAD REQUEST on invalid parameters.
 	* @param data			custom data passed through the request to use in the callback
 	* @param data2			custom data passed through the request to use in the callback
@@ -472,7 +472,7 @@ methodmap DiscordBot < JSON_Object
 	* All JSON parameters are optional.
 	* 
 	* @param channelid		id of the channel you want to modify.
-	* @param to				DiscordChannel object with the modifies you want to apply to the channel.
+	* @param to 			DiscordChannel object with the modifies you want to apply to the channel.
 	* @param callback		a channel on success, and a 400 BAD REQUEST on invalid parameters.
 	* @param data			custom data passed through the request to use in the callback
 	* @param data2			custom data passed through the request to use in the callback
@@ -543,8 +543,8 @@ methodmap DiscordBot < JSON_Object
 	* Requires the MANAGE_MESSAGES permission.
 	* Returns a 204 empty response on success.
 	*
-	* @param channel	channel where the message is located.
-	* @param message	message you want to pin.
+	* @param channel		channel where the message is located.
+	* @param message		message you want to pin.
 	*/
 	public native void PinMessage(DiscordChannel channel, DiscordMessage message);
 
@@ -553,8 +553,8 @@ methodmap DiscordBot < JSON_Object
 	* Requires the MANAGE_MESSAGES permission.
 	* Returns a 204 empty response on success.
 	*
-	* @param channel	id of the channel where the message is located.
-	* @param message	id of the message you want to pin.
+	* @param channel		id of the channel where the message is located.
+	* @param message		id of the message you want to pin.
 	*/
 	public native void PinMessageID(const char[] channelid, const char[] messageid);
 
@@ -563,8 +563,8 @@ methodmap DiscordBot < JSON_Object
 	* Requires the MANAGE_MESSAGES permission.
 	* Returns a 204 empty response on success.
 	*
-	* @param channel	channel where the message is located.
-	* @param message	message you want to unpin.
+	* @param channel		channel where the message is located.
+	* @param message		message you want to unpin.
 	*/
 	public native void UnpinMessage(DiscordChannel channel, DiscordMessage message);
 
@@ -573,8 +573,8 @@ methodmap DiscordBot < JSON_Object
 	* Requires the MANAGE_MESSAGES permission.
 	* Returns a 204 empty response on success.
 	*
-	* @param channel	id of the channel where the message is located.
-	* @param message	id of the message you want to unpin.
+	* @param channel		id of the channel where the message is located.
+	* @param message		id of the message you want to unpin.
 	*/
 	public native void UnpinMessageID(const char[] channelid, const char[] messageid);
 
