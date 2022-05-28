@@ -606,6 +606,40 @@ methodmap DiscordBot < JSON_Object
 	public native void DeleteMessagesBulk(DiscordChannel channel, JSON_Array messages);
 
 	/**
+	* Returns the messages for a channel.
+	* If operating on a guild channel, this endpoint requires the VIEW_CHANNEL permission to be present on the current user.
+	* If the current user is missing the READ_MESSAGE_HISTORY permission in the channel then this will return no messages (since they cannot read the message history).
+	* Returns an array of message objects on success.
+	*
+	* @param channel		channel where the message(s) are located.
+	* @param around			Get messages around this message ID (absent by default)
+	* @param before			Get messages before this message ID (absent by default)
+	* @param after			Get messages after this message ID (absent by default)
+	* @param limit			Max number of messages to return (1-100) (50 by default)
+	* @param callback		array of message objects on success.
+	* @param data			custom data passed through the request to use in the callback
+	* @param data2			custom data passed through the request to use in the callback
+	*/
+	public native void GetChannelMessages(DiscordChannel channel, const char[] around = "", const char[] before = "", const char[] after = "", int limit = 50, OnGetDiscordChannelMessages callback, any data = 0, any data2 = 0);
+
+	/**
+	* Returns the messages for a channel.
+	* If operating on a guild channel, this endpoint requires the VIEW_CHANNEL permission to be present on the current user.
+	* If the current user is missing the READ_MESSAGE_HISTORY permission in the channel then this will return no messages (since they cannot read the message history).
+	* Returns an array of message objects on success.
+	*
+	* @param channel		id of the channel where the message(s) are located.
+	* @param around			Get messages around this message ID (absent by default)
+	* @param before			Get messages before this message ID (absent by default)
+	* @param after			Get messages after this message ID (absent by default)
+	* @param limit			Max number of messages to return (1-100) (50 by default)
+	* @param callback		array of message objects on success.
+	* @param data			custom data passed through the request to use in the callback
+	* @param data2			custom data passed through the request to use in the callback
+	*/
+	public native void GetChannelMessagesID(const char[] channelid, const char[] around = "", const char[] before = "", const char[] after = "", int limit = 50, OnGetDiscordChannelMessages callback, any data = 0, any data2 = 0);
+
+	/**
 	* Create a reaction for the message.
 	* This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user.
 	* Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.

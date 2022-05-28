@@ -167,6 +167,47 @@ typeset OnGetDiscordChannel
 	function void (DiscordBot bot, DiscordChannel channel, any data, any data2);
 }
 
+/** DiscordBot.GetChannelMessages
+*
+* Called as callback after a successful request.
+*
+*/
+typeset OnGetDiscordChannelMessages
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param messages	DiscordMessageList object received.
+	*					DiscordMessageList handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordMessageList messages);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param messages	DiscordMessageList object received.
+	*					DiscordMessageList handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordMessageList messages, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param messages	DiscordMessageList object received.
+	*					DiscordMessageList handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordMessageList messages, any data, any data2);
+}
+
 /**
 * The thread metadata object contains a number of thread-specific channel fields that are not needed by other channel types.
 */

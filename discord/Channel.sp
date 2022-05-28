@@ -109,6 +109,65 @@ public int DiscordBot_GetChannel(Handle plugin, int params)
 	GetChannel(bot, channelID, pack);
 }
 
+public int DiscordBot_GetChannelMessages(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+	DiscordChannel channel = GetNativeCell(2);
+
+	char around[32];
+	GetNativeString(3, around, sizeof(around));
+
+	char before[32];
+	GetNativeString(4, before, sizeof(before));
+
+	char after[32];
+	GetNativeString(5, after, sizeof(after));
+
+	int limit = GetNativeCell(6);
+
+	OnGetDiscordChannelMessages cb = view_as<OnGetDiscordChannelMessages>(GetNativeFunction(7));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(8));
+	pack.WriteCell(GetNativeCell(9));
+
+	char channelID[32];
+	channel.GetID(channelID, sizeof(channelID));
+	GetChannelMessages(bot, channelID, around, before, after, limit, pack);
+}
+
+public int DiscordBot_GetChannelMessagesID(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+
+	char channelID[32];
+	GetNativeString(2, channelID, sizeof(channelID));
+
+	char around[32];
+	GetNativeString(3, around, sizeof(around));
+
+	char before[32];
+	GetNativeString(4, before, sizeof(before));
+
+	char after[32];
+	GetNativeString(5, after, sizeof(after));
+
+	int limit = GetNativeCell(6);
+
+	OnGetDiscordChannelMessages cb = view_as<OnGetDiscordChannelMessages>(GetNativeFunction(7));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(8));
+	pack.WriteCell(GetNativeCell(9));
+	GetChannelMessages(bot, channelID, around, before, after, limit, pack);
+}
+
 static void ModifyChannel(DiscordBot bot, const char[] channelid, DiscordChannel to, DataPack pack)
 {
 	char route[64];
@@ -137,5 +196,12 @@ static void GetChannel(DiscordBot bot, const char[] channelid, DataPack pack)
 {
 	char route[64];
 	Format(route, sizeof(route), "channels/%s", channelid);
+	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
+}
+
+static void GetChannelMessages(DiscordBot bot, const char[] channelid, const char[] around, const char[] before, const char[] after, int limit, DataPack pack)
+{
+	char route[64];
+	Format(route, sizeof(route), "channels/%s/messages?around=%s&before=%s&after=%s&limit=%i", channelid, around, before, after, limit);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
 }
