@@ -168,6 +168,49 @@ public int DiscordBot_GetChannelMessagesID(Handle plugin, int params)
 	GetChannelMessages(bot, channelID, around, before, after, limit, pack);
 }
 
+public int DiscordBot_GetChannelMessage(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+	DiscordChannel channel = GetNativeCell(2);
+
+	char messageID[32];
+	GetNativeString(3, messageID, sizeof(messageID));
+
+	OnGetDiscordChannelMessage cb = view_as<OnGetDiscordChannelMessage>(GetNativeFunction(4));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(5));
+	pack.WriteCell(GetNativeCell(6));
+
+	char channelID[32];
+	channel.GetID(channelID, sizeof(channelID));
+	GetChannelMessage(bot, channelID, messageID, pack);
+}
+
+public int DiscordBot_GetChannelMessageID(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+
+	char channelID[32];
+	GetNativeString(2, channelID, sizeof(channelID));
+
+	char messageID[32];
+	GetNativeString(3, messageID, sizeof(messageID));
+
+	OnGetDiscordChannelMessage cb = view_as<OnGetDiscordChannelMessage>(GetNativeFunction(4));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(5));
+	pack.WriteCell(GetNativeCell(6));
+	GetChannelMessage(bot, channelID, messageID, pack);
+}
+
 static void ModifyChannel(DiscordBot bot, const char[] channelid, DiscordChannel to, DataPack pack)
 {
 	char route[64];
@@ -203,5 +246,12 @@ static void GetChannelMessages(DiscordBot bot, const char[] channelid, const cha
 {
 	char route[64];
 	Format(route, sizeof(route), "channels/%s/messages?around=%s&before=%s&after=%s&limit=%i", channelid, around, before, after, limit);
+	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
+}
+
+static void GetChannelMessage(DiscordBot bot, const char[] channelid, const char[] messageid, DataPack pack)
+{
+	char route[64];
+	Format(route, sizeof(route), "channels/%s/messages/%s", channelid, messageid);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
 }

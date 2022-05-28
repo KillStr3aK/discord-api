@@ -167,7 +167,7 @@ typeset OnGetDiscordChannel
 	function void (DiscordBot bot, DiscordChannel channel, any data, any data2);
 }
 
-/** DiscordBot.GetChannelMessages
+/** DiscordBot.GetChannelMessages | DiscordBot.GetChannelMessagesID
 *
 * Called as callback after a successful request.
 *
@@ -206,6 +206,47 @@ typeset OnGetDiscordChannelMessages
 	* @noreturn
 	*/
 	function void (DiscordBot bot, DiscordMessageList messages, any data, any data2);
+}
+
+/** DiscordBot.GetChannelMessage | DiscordBot.GetChannelMessageID
+*
+* Called as callback after a successful request.
+*
+*/
+typeset OnGetDiscordChannelMessage
+{
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param message	DiscordMessage object received.
+	*					DiscordMessage handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordMessage message);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param message	DiscordMessage object received.
+	*					DiscordMessage handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordMessage message, any data);
+
+	/**
+	*
+	* @param bot		same handle as the bot you have used to call the native.
+	* @param message	DiscordMessage object received.
+	*					DiscordMessage handle will not be deleted automatically when the callback function returns, it is your responsibility to manage memory.
+	* @param data		custom data passed through the request to use in the callback
+	* @param data2		custom data passed through the request to use in the callback
+	*
+	* @noreturn
+	*/
+	function void (DiscordBot bot, DiscordMessage message, any data, any data2);
 }
 
 /**

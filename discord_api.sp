@@ -48,6 +48,8 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("DiscordBot.GetChannel", DiscordBot_GetChannel);
 	CreateNative("DiscordBot.GetChannelMessages", DiscordBot_GetChannelMessages);
 	CreateNative("DiscordBot.GetChannelMessagesID", DiscordBot_GetChannelMessagesID);
+	CreateNative("DiscordBot.GetChannelMessage", DiscordBot_GetChannelMessage);
+	CreateNative("DiscordBot.GetChannelMessageID", DiscordBot_GetChannelMessageID);
 
 	CreateNative("DiscordBot.DeleteChannel", DiscordBot_DeleteChannel);
 	CreateNative("DiscordBot.DeleteChannelID", DiscordBot_DeleteChannelID);

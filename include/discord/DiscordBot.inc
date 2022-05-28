@@ -640,6 +640,32 @@ methodmap DiscordBot < JSON_Object
 	public native void GetChannelMessagesID(const char[] channelid, const char[] around = "", const char[] before = "", const char[] after = "", int limit = 50, OnGetDiscordChannelMessages callback, any data = 0, any data2 = 0);
 
 	/**
+	* Returns a specific message in the channel.
+	* If operating on a guild channel, this endpoint requires the READ_MESSAGE_HISTORY permission to be present on the current user.
+	* Returns a message object on success.
+	*
+	* @param channel		channel where the message is located.
+	* @param messageid		id of the message.
+	* @param callback		a message object on success.
+	* @param data			custom data passed through the request to use in the callback
+	* @param data2			custom data passed through the request to use in the callback
+	*/
+	public native void GetChannelMessage(DiscordChannel channel, const char[] messageid, OnGetDiscordChannelMessage callback, any data = 0, any data2 = 0);
+
+	/**
+	* Returns a specific message in the channel.
+	* If operating on a guild channel, this endpoint requires the READ_MESSAGE_HISTORY permission to be present on the current user.
+	* Returns a message object on success.
+	*
+	* @param channel		id of the channel where the message is located.
+	* @param messageid		id of the message.
+	* @param callback		a message object on success.
+	* @param data			custom data passed through the request to use in the callback
+	* @param data2			custom data passed through the request to use in the callback
+	*/
+	public native void GetChannelMessageID(const char[] channelid, const char[] messageid, OnGetDiscordChannelMessage callback, any data = 0, any data2 = 0);
+	
+	/**
 	* Create a reaction for the message.
 	* This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user.
 	* Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user.
