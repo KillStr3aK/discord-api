@@ -501,7 +501,7 @@ methodmap DiscordBot < JSON_Object
 	* @param message		DiscordMessage object that you want to send.
 	* @param callback 		a message object.
 	*/
-	public native void SendMessageToChannelID(const char[] channel, DiscordMessage message);
+	public native void SendMessageToChannelID(const char[] channelid, DiscordMessage message);
 
 	/**
 	* Edit a previously sent message.
