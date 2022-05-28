@@ -211,6 +211,25 @@ public int DiscordBot_GetChannelMessageID(Handle plugin, int params)
 	GetChannelMessage(bot, channelID, messageID, pack);
 }
 
+public int DiscordBot_TriggerTypingIndicator(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+	DiscordChannel channel = GetNativeCell(2);
+
+	char channelID[32];
+	channel.GetID(channelID, sizeof(channelID));
+	TriggerTypingIndicator(bot, channelID);
+}
+
+public int DiscordBot_TriggerTypingIndicatorID(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+
+	char channelID[32];
+	GetNativeString(2, channelID, sizeof(channelID));
+	TriggerTypingIndicator(bot, channelID);
+}
+
 static void ModifyChannel(DiscordBot bot, const char[] channelid, DiscordChannel to, DataPack pack)
 {
 	char route[64];
@@ -254,4 +273,11 @@ static void GetChannelMessage(DiscordBot bot, const char[] channelid, const char
 	char route[64];
 	Format(route, sizeof(route), "channels/%s/messages/%s", channelid, messageid);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
+}
+
+static void TriggerTypingIndicator(DiscordBot bot, const char[] channelid)
+{
+	char route[64];
+	Format(route, sizeof(route), "channels/%s/typing", channelid);
+	SendRequest(bot, route, _, k_EHTTPMethodPOST);
 }

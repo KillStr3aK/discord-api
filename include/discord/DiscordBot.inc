@@ -789,5 +789,5 @@ methodmap DiscordBot < JSON_Object
 	*
 	* @param channelid		id of the channel where the typing should be triggered.
 	*/
-	public native void TriggerTypingIndicator(const char[] channelid);
+	public native void TriggerTypingIndicatorID(const char[] channelid);
 }
