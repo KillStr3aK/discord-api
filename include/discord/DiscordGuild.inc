@@ -61,6 +61,33 @@ enum DiscordGuildIntegrationExpireBehaviour
 	KICK = 1
 }
 
+enum DiscordGuildScheduledEventPrivacyLevel
+{
+	GUILD_ONLY = 2 /* the scheduled event is only accessible to guild members */
+}
+
+enum DiscordGuildScheduledEventEntityType
+{
+	STAGE_INSTANCE = 1,
+	VOICE = 2,
+	EXTERNAL = 3
+}
+
+/*
+* Once status is set to COMPLETED or CANCELED, the status can no longer be updated
+* Valid Guild Scheduled Event Status Transitions
+* SCHEDULED --> ACTIVE
+* ACTIVE --------> COMPLETED
+* SCHEDULED --> CANCELED
+*/
+enum DiscordGuildScheduledEventStatus
+{
+	SCHEDULED = 1,
+	ACTIVE = 2,
+	COMPLETED = 3,
+	CANCELED = 4
+}
+
 /** DiscordBot.CreateGuild
 *
 * Called as callback after a successful request.
