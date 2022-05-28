@@ -603,7 +603,7 @@ methodmap DiscordBot < JSON_Object
 	* @param channel		channel where the message is.
 	* @param messages		an array of message ids to delete (2-100).
 	*/
-	public native void DeleteMessagesBulk(DiscordChannel channel, JSON_Array messages);
+	public native void DeleteMessagesBulk(DiscordChannel channel, DiscordMessageList messages);
 
 	/**
 	* Returns the messages for a channel.
