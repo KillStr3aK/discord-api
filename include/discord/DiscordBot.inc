@@ -171,9 +171,9 @@ methodmap DiscordBot < JSON_Object
 		return view_as<DiscordBot>(obj);
 	}
 
-	public JSON_Array GetListeningChannels()
+	public DiscordChannelList GetListeningChannels()
 	{
-		return view_as<JSON_Array>(this.GetObject("listening_channels"));
+		return view_as<DiscordChannelList>(this.GetObject("listening_channels"));
 	}
 
 	/**
@@ -182,7 +182,7 @@ methodmap DiscordBot < JSON_Object
 	*/
 	public bool IsListeningToChannelID(const char[] channelid)
 	{
-		JSON_Array channels = this.GetListeningChannels();
+		DiscordChannelList channels = this.GetListeningChannels();
 		if(channels != null)
 		{
 			for(int i = 0; i < channels.Length; i++)
@@ -217,7 +217,7 @@ methodmap DiscordBot < JSON_Object
 	*/
 	public void StopListeningToChannelID(const char[] channelid)
 	{
-		JSON_Array channels = this.GetListeningChannels();
+		DiscordChannelList channels = this.GetListeningChannels();
 		if(channels != null)
 		{
 			for(int i = 0; i < channels.Length; i++)
@@ -256,10 +256,10 @@ methodmap DiscordBot < JSON_Object
 		if(this.IsListeningToChannel(channel))
 			return;
 
-		JSON_Array channels = this.GetListeningChannels();
+		DiscordChannelList channels = this.GetListeningChannels();
 		if(channels == null)
 		{
-			channels = new JSON_Array();
+			channels = view_as<DiscordChannelList>(new JSON_Array());
 			this.SetObject("listening_channels", channels);
 		}
 
