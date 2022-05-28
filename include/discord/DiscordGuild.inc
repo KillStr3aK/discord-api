@@ -5,7 +5,7 @@
 
 enum DiscordGuildVerificationLevel
 {
-	VerificationLevel_NONE = 0, /* unrestricted */
+	UNRESTRICTED = 0, /* unrestricted */
 	LOW = 1, /* must have verified email on account */
 	MEDIUM = 2, /* must be registered on Discord for longer than 5 minutes */
 	HIGH = 3, /* must be a member of the server for longer than 10 minutes */
