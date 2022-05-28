@@ -332,6 +332,26 @@ methodmap DiscordGuildScheduledEvent < DiscordObject
 	{
 		return this.GetString("image", output, maxsize);
 	}
+
+	/**
+	* 	the time the scheduled event will start
+	*/
+	public bool GetScheduledStart(DateTime& out)
+	{
+		char szDate[DATE_LENGTH];
+		this.GetString("scheduled_start_time", szDate, sizeof(szDate));
+		return DateTime.TryParse(szDate, out);
+	}
+
+	/**
+	* 	the time the scheduled event will end, required if entity_type is EXTERNAL
+	*/
+	public bool GetScheduledEnd(DateTime& out)
+	{
+		char szDate[DATE_LENGTH];
+		this.GetString("scheduled_end_time", szDate, sizeof(szDate));
+		return DateTime.TryParse(szDate, out);
+	}
 }
 
 methodmap DiscordIntegrationAccount < JSON_Object
