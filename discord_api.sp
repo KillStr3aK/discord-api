@@ -75,6 +75,8 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("DiscordBot.GetPinnedMessages", DiscordBot_GetPinnedMessages);
 	CreateNative("DiscordBot.GetPinnedMessagesID", DiscordBot_GetPinnedMessagesID);
 
+	CreateNative("DiscordBot.CrosspostMessage", DiscordBot_CrosspostMessage);
+
 	CreateNative("DiscordBot.DeleteMessagesBulk", DiscordBot_DeleteMessagesBulk);
 	CreateNative("DiscordBot.DeleteMessage", DiscordBot_DeleteMessage);
 	CreateNative("DiscordBot.DeleteMessageID", DiscordBot_DeleteMessageID);

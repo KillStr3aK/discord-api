@@ -273,6 +273,21 @@ public int DiscordBot_GetPinnedMessagesID(Handle plugin, int params)
 	GetPinnedMessages(bot, channelID, pack);
 }
 
+public int DiscordBot_CrosspostMessage(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+	DiscordChannel channel = GetNativeCell(2);
+	DiscordMessage message = GetNativeCell(3);
+
+	char channelID[32];
+	channel.GetID(channelID, sizeof(channelID));
+
+	char messageID[32];
+	message.GetID(messageID, sizeof(messageID));
+
+	CrosspostMessage(bot, channelID, messageID);
+}
+
 static void SendMessage(DiscordBot bot, const char[] channelid, DiscordMessage message)
 {
 	char route[64];
@@ -327,4 +342,11 @@ static void GetPinnedMessages(DiscordBot bot, const char[] channelid, DataPack p
 	char route[64];
 	Format(route, sizeof(route), "channels/%s/pins", channelid);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
+}
+
+static void CrosspostMessage(DiscordBot bot, const char[] channelid, const char[] messageid)
+{
+	char route[128];
+	Format(route, sizeof(route), "channels/%s/messages/%s/crosspost", channelid, messageid);
+	SendRequest(bot, route, _, k_EHTTPMethodPOST);
 }

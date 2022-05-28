@@ -684,6 +684,16 @@ methodmap DiscordBot < JSON_Object
 	* @param data2			custom data passed through the request to use in the callback
 	*/
 	public native void GetChannelMessageID(const char[] channelid, const char[] messageid, OnGetDiscordChannelMessage callback, any data = 0, any data2 = 0);
+
+	/**
+	* Crosspost a message in a News Channel to following channels.
+	* This endpoint requires the SEND_MESSAGES permission, if the current user sent the message, or additionally the MANAGE_MESSAGES permission, for all other messages, to be present for the current user.
+	* Returns a message object.
+	*
+	* @param channel 		channel where the message is.
+	* @param message		message you want to crosspost.
+	*/
+	public native void CrosspostMessage(DiscordChannel channel, DiscordMessage message);
 	
 	/**
 	* Create a reaction for the message.
