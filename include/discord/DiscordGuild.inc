@@ -264,6 +264,33 @@ methodmap ScheduledEventMetaData < JSON_Object
 
 }
 
+methodmap DiscordGuildScheduledEventUser < JSON_Object
+{
+	/**
+	*	user which subscribed to an event
+	*/
+	property DiscordUser User
+	{
+		public get() { return view_as<DiscordUser>(this.GetObject("user")); }
+	}
+
+	/**
+	*	guild member data for this user for the guild which this event belongs to, if any
+	*/
+	property DiscordGuildUser Member
+	{
+		public get() { return view_as<DiscordUser>(this.GetObject("member")); }
+	}
+
+	/**
+	*	the scheduled event id which the user subscribed to
+	*/
+	public bool GetEventID(char[] output, int maxsize)
+	{
+		return this.GetString("guild_scheduled_event_id", output, maxsize);
+	}
+}
+
 /**
 * A representation of a scheduled event in a guild.
 */
