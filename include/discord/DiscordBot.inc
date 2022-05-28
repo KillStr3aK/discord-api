@@ -770,4 +770,24 @@ methodmap DiscordBot < JSON_Object
 	* @param message		id of the message that has the reaction.
 	*/
 	public native void DeleteAllReactionsEmojiID(const char[] channelid, const char[] messageid, DiscordEmoji emoji);
+
+	/**
+	* Post a typing indicator for the specified channel.
+	* Generally bots should not implement this route.
+	* However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message.
+	* Returns a 204 empty response on success. Fires a Typing Start Gateway event.
+	*
+	* @param channel		channel where the typing should be triggered.
+	*/
+	public native void TriggerTypingIndicator(DiscordChannel channel);
+
+	/**
+	* Post a typing indicator for the specified channel.
+	* Generally bots should not implement this route.
+	* However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message.
+	* Returns a 204 empty response on success. Fires a Typing Start Gateway event.
+	*
+	* @param channelid		id of the channel where the typing should be triggered.
+	*/
+	public native void TriggerTypingIndicator(const char[] channelid);
 }
