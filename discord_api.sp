@@ -29,7 +29,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 {
 	CreateNative("DiscordBot.TriggerTypingIndicator", DiscordBot_TriggerTypingIndicator);
 	CreateNative("DiscordBot.TriggerTypingIndicatorID", DiscordBot_TriggerTypingIndicatorID);
-	
+
 	CreateNative("DiscordBot.StartTimer", DiscordBot_StartTimer);
 
 	CreateNative("DiscordBot.CreateGuild", DiscordBot_CreateGuild);
@@ -71,6 +71,9 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 
 	CreateNative("DiscordBot.UnpinMessage", DiscordBot_UnpinMessage);
 	CreateNative("DiscordBot.UnpinMessageID", DiscordBot_UnpinMessageID);
+
+	CreateNative("DiscordBot.GetPinnedMessages", DiscordBot_GetPinnedMessages);
+	CreateNative("DiscordBot.GetPinnedMessagesID", DiscordBot_GetPinnedMessagesID);
 
 	CreateNative("DiscordBot.DeleteMessagesBulk", DiscordBot_DeleteMessagesBulk);
 	CreateNative("DiscordBot.DeleteMessage", DiscordBot_DeleteMessage);

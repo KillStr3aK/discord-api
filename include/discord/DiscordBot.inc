@@ -579,6 +579,26 @@ methodmap DiscordBot < JSON_Object
 	public native void UnpinMessageID(const char[] channelid, const char[] messageid);
 
 	/**
+	* Returns all pinned messages in the channel as an array of message objects.
+	*
+	* @param channel		channel where the messages are located.
+	* @param callback		an array of message objects.
+	* @param data			custom data passed through the request to use in the callback
+	* @param data2			custom data passed through the request to use in the callback
+	*/
+	public native void GetPinnedMessages(DiscordChannel channel, OnGetDiscordChannelPinnedMessages callback, any data = 0, any data2 = 0);
+
+	/**
+	* Returns all pinned messages in the channel as an array of message objects.
+	*
+	* @param channelid		id of the channel where the messages are located.
+	* @param callback		an array of message objects.
+	* @param data			custom data passed through the request to use in the callback
+	* @param data2			custom data passed through the request to use in the callback
+	*/
+	public native void GetPinnedMessagesID(const char[] channelid, OnGetDiscordChannelPinnedMessages callback, any data = 0, any data2 = 0);
+
+	/**
 	* Delete a message.
 	* If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the MANAGE_MESSAGES permission.
 	*

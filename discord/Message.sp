@@ -237,6 +237,42 @@ public int DiscordBot_GetChannelMessageID(Handle plugin, int params)
 	GetChannelMessage(bot, channelID, messageID, pack);
 }
 
+public int DiscordBot_GetPinnedMessages(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+	DiscordChannel channel = GetNativeCell(2);
+	OnGetDiscordChannelPinnedMessages cb = view_as<OnGetDiscordChannelPinnedMessages>(GetNativeFunction(3));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(4));
+	pack.WriteCell(GetNativeCell(5));
+
+	char channelID[32];
+	channel.GetID(channelID, sizeof(channelID));
+	GetPinnedMessages(bot, channelID, pack);
+}
+
+public int DiscordBot_GetPinnedMessagesID(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+
+	char channelID[32];
+	GetNativeString(2, channelID, sizeof(channelID));
+
+	OnGetDiscordChannelPinnedMessages cb = view_as<OnGetDiscordChannelPinnedMessages>(GetNativeFunction(3));
+
+	DataPack pack = new DataPack();
+	pack.WriteCell(bot);
+	pack.WriteCell(plugin);
+	pack.WriteFunction(cb);
+	pack.WriteCell(GetNativeCell(4));
+	pack.WriteCell(GetNativeCell(5));
+	GetPinnedMessages(bot, channelID, pack);
+}
+
 static void SendMessage(DiscordBot bot, const char[] channelid, DiscordMessage message)
 {
 	char route[64];
@@ -283,5 +319,12 @@ static void GetChannelMessage(DiscordBot bot, const char[] channelid, const char
 {
 	char route[64];
 	Format(route, sizeof(route), "channels/%s/messages/%s", channelid, messageid);
+	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
+}
+
+static void GetPinnedMessages(DiscordBot bot, const char[] channelid, DataPack pack)
+{
+	char route[64];
+	Format(route, sizeof(route), "channels/%s/pins", channelid);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
 }
