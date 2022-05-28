@@ -20,3 +20,4 @@ methodmap DiscordTypeExtension < JSON_Array
 
 methodmap DiscordRoleList < DiscordTypeExtension { }
 methodmap DiscordMessageList < DiscordTypeExtension { }
+methodmap DiscordChannelList < DiscordTypeExtension { }
