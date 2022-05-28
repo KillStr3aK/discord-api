@@ -38,6 +38,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("DiscordBot.GetGuildMemberID", DiscordBot_GetGuildMemberID);
 	
 	CreateNative("DiscordBot.GetGuildScheduledEvent", DiscordBot_GetGuildScheduledEvent);
+	CreateNative("DiscordBot.DeleteGuildScheduledEvent", DiscordBot_DeleteGuildScheduledEvent);
 
 	CreateNative("DiscordBot.AddRole", DiscordBot_AddRole);
 	CreateNative("DiscordBot.RemoveRole", DiscordBot_RemoveRole);

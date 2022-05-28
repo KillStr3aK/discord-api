@@ -356,6 +356,15 @@ methodmap DiscordBot < JSON_Object
 	public native void GetGuildScheduledEvent(DiscordGuild guild, const char[] eventid, OnGetDiscordGuildScheduledEvent callback, any data = 0, any data2 = 0);
 
 	/**
+	* Delete a guild scheduled event.
+	* Returns a 204 on success.
+	* 
+	* @param guild			guild that has the event scheduled.
+	* @param event			scheduled event.
+	*/
+	public native void DeleteGuildScheduledEvent(DiscordGuild guild, DiscordGuildScheduledEvent event);
+
+	/**
 	* Adds a role to a guild member.
 	* Requires the MANAGE_ROLES permission.
 	* Returns a 204 empty response on success.

@@ -164,6 +164,21 @@ public int DiscordBot_GetGuildScheduledEvent(Handle plugin, int params)
 	GetGuildScheduledEvent(bot, guildid, eventid, pack);
 }
 
+public int DiscordBot_DeleteGuildScheduledEvent(Handle plugin, int params)
+{
+	DiscordBot bot = GetNativeCell(1);
+	DiscordGuild guild = GetNativeCell(2);
+	DiscordGuildScheduledEvent event = GetNativeCell(3);
+
+	char guildid[64];
+	guild.GetID(guildid, sizeof(guildid));
+
+	char eventid[64];
+	event.GetID(eventid, sizeof(eventid));
+
+	DeleteGuildScheduledEvent(bot, guildid, eventid);
+}
+
 static void CreateGuild(DiscordBot bot, DiscordGuild guild, DataPack pack)
 {
 	char route[128];
@@ -204,4 +219,11 @@ static void GetGuildScheduledEvent(DiscordBot bot, const char[] guildid, const c
 	char route[128];
 	Format(route, sizeof(route), "guilds/%s/scheduled-events/%s", guildid, eventid);
 	SendRequest(bot, route, _, k_EHTTPMethodGET, OnDiscordDataReceived, _, pack);
+}
+
+static void DeleteGuildScheduledEvent(DiscordBot bot, const char[] guildid, const char[] eventid)
+{
+	char route[128];
+	Format(route, sizeof(route), "guilds/%s/scheduled-events/%s", guildid, eventid);
+	SendRequest(bot, route, _, k_EHTTPMethodDELETE);
 }
